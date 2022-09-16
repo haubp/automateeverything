@@ -1,0 +1,32 @@
+{
+ "test_category_name": "any",
+ "test_category_groups": [
+  {
+   "test_group_name": "any",
+   "test_group_tests": [
+    {
+     "name": "any",
+     "test_steps": [
+      {
+       "step_name": "any",
+       "step_action": "MoveMouse",
+       "step_params": [
+        1411,
+        464
+       ]
+      },
+      {
+       "step_name": "any",
+       "step_action": "CheckLog",
+       "step_params": [
+        "core.log",
+        "[iad-cross_domain] ready to serve",
+        "08-23-22 (17:24:29)"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

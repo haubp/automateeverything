@@ -1,0 +1,53 @@
+{
+ "test_category_name": "any",
+ "test_category_groups": [
+  {
+   "test_group_name": "any",
+   "test_group_tests": [
+    {
+     "name": "any",
+     "test_steps": [
+      {
+       "step_name": "any",
+       "step_action": "MoveMouse",
+       "step_params": [
+        1389,
+        219
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "any",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "any",
+       "step_action": "MoveMouse",
+       "step_params": [
+        1389,
+        219
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "any",
+       "step_action": "ScrollMouse",
+       "step_params": [
+        100
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
