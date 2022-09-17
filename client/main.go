@@ -1,8 +1,9 @@
 package main
 
 import (
-	// "automateeverything.com/v1/runner"
-	// "automateeverything.com/v1/template"
+	// "automateeverything.com/v2/runner"
+	"automateeverything.com/v2/template"
+	"automateeverything.com/v2/cwidget"
 
 	"fmt"
 	"image/color"
@@ -13,31 +14,20 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2/theme"
 )
 
-func main() {
-	// runner.ExecuteTest("myTemplate.json")
-
-	// steps := template.MakeSteps()
-	// test := template.Test{TestName:"any", TestSteps: steps}
-	// group := template.TestGroup{TestGroupName:"any", TestGroupTests: []template.Test{test}}
-	// category := template.TestCategory{TestCategoryName:"any", TestCategoryGroups: []template.TestGroup{group}}
-	// template.CreateJsonFileFromTemplate("myTemplate2.json", category)
-
-	myApp := app.New()
-	w := myApp.NewWindow("Automation Testing")
-	w.Resize(fyne.NewSize(800, 800))
-
-	// Menu
+func createMenu() *fyne.MainMenu {
 	importItem := fyne.NewMenuItem("Import", func() {
 		fmt.Println("Import pressed")
 	})
 	fileMenu := fyne.NewMenu("File", importItem)
 	menu := fyne.NewMainMenu(fileMenu)
-	w.SetMainMenu(menu)
 
-	// Create Test Page
+	return menu
+}
 
+func createTestPage(a fyne.App, t *template.TestCategory) *fyne.Container {
 	captureTime := container.New(
 		layout.NewHBoxLayout(),
 		widget.NewLabel("Capture Time"),
@@ -49,7 +39,7 @@ func main() {
 		widget.NewLabel("Check Log"),
 		layout.NewSpacer(),
 		widget.NewButton("+", func(){
-			checkLogConfigWindow := myApp.NewWindow("Check Log Configuration")
+			checkLogConfigWindow := a.NewWindow("Check Log Configuration")
 			content := container.New(
 				layout.NewGridLayoutWithRows(4),
 				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("Path"), widget.NewEntry()),
@@ -69,7 +59,7 @@ func main() {
 		widget.NewLabel("Scan Screen"),
 		layout.NewSpacer(),
 		widget.NewButton("+", func(){
-			scanScreenConfigWindow := myApp.NewWindow("Scan Screen Configuration")
+			scanScreenConfigWindow := a.NewWindow("Scan Screen Configuration")
 			content := container.New(
 				layout.NewGridLayoutWithRows(3),
 				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("Image Path"), widget.NewEntry()),
@@ -85,12 +75,26 @@ func main() {
 		}),
 	)
 
-	t1 := widget.NewLabel("Test Category")
-	t2 := widget.NewLabel("Test Groups")
-	t3 := widget.NewLabel("Test Cases")
+	// var testGroupWidgets []cWidget.TestWidget
+	// var testCaseWidgets []cWidget.TestWidget
+
+	var displayWidget []fyne.CanvasObject
+	var referenceWidget []cwidget.TestWidget
+
+	displayWidget = append(displayWidget, widget.NewLabel(t.TestCategoryName))
+	referenceWidget = append(referenceWidget, cwidget.NewCategoryWidget(t))
+	
+	for _, group := range t.TestCategoryGroups {
+		displayWidget = append(displayWidget, widget.NewLabel(group.TestGroupName))
+		
+		for _, test := range group.TestGroupTestCases {
+			displayWidget = append(displayWidget, widget.NewLabel(test.TestName))
+
+		}
+	}
 
 	t4 := widget.NewButton("Add New Step", func() {
-		newActionWindow := myApp.NewWindow("New Action")
+		newActionWindow := a.NewWindow("New Action")
 		content := container.New(layout.NewMaxLayout(), widget.NewCard("Step Action", "", container.New(
 			layout.NewGridLayoutWithRows(5),
 			captureTime,
@@ -109,9 +113,7 @@ func main() {
 
 	c1 := container.NewVScroll(
         container.NewVBox(
-            t1,
-			t2,
-			t3,
+            displayWidget...
         ),
     )
 
@@ -136,6 +138,32 @@ func main() {
 						container.New(layout.NewHBoxLayout(), line, c2),
 						),
 		container.New(layout.NewVBoxLayout(), layout.NewSpacer(), container.New(layout.NewHBoxLayout(), layout.NewSpacer(), b)))
+
+	return createTestPage
+}
+
+func main() {
+	// runner.ExecuteTest("myTemplate.json")
+
+	// steps := template.MakeSteps()
+	// test := template.Test{TestName:"any", TestSteps: steps}
+	// group := template.TestGroup{TestGroupName:"any", TestGroupTests: []template.Test{test}}
+	// category := template.TestCategory{TestCategoryName:"any", TestCategoryGroups: []template.TestGroup{group}}
+	// template.CreateJsonFileFromTemplate("myTemplate2.json", category)
+
+	t, _ := template.CreateTestFromJsonFile("myTemplate.json")
+	fmt.Println(t)
+
+	myApp := app.New()
+	myApp.Settings().SetTheme(theme.DarkTheme())
+	w := myApp.NewWindow("Automation Testing")
+	w.Resize(fyne.NewSize(800, 800))
+
+	// Menu
+	w.SetMainMenu(createMenu())
+
+	// Create Test Page
+	createTestPage := createTestPage(myApp, &t)
 
 	// Run Test Page
 	importTestButton := widget.NewButton("Import", func() {

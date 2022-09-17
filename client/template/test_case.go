@@ -1,6 +1,6 @@
 package template
 
-type Test struct {
+type TestCase struct {
 	TestName string `json:"name"`
 	TestSteps []Step `json:"test_steps"`
 }

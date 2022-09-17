@@ -1,14 +1,14 @@
 {
- "test_category_name": "any",
+ "test_category_name": "soh",
  "test_category_groups": [
   {
-   "test_group_name": "any",
+   "test_group_name": "report_to_cloud",
    "test_group_tests": [
     {
-     "name": "any",
+     "name": "check_enable_log",
      "test_steps": [
       {
-       "step_name": "any",
+       "step_name": "Open Chrome",
        "step_action": "MoveMouse",
        "step_params": [
         1411,
@@ -16,7 +16,7 @@
        ]
       },
       {
-       "step_name": "any",
+       "step_name": "Check core.log",
        "step_action": "CheckLog",
        "step_params": [
         "core.log",
