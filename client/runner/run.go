@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"automateeverything.com/v1/template"
-	"automateeverything.com/v1/utils"
+	"automateeverything.com/v2/template"
+	"automateeverything.com/v2/utils"
 )
 
 func ExecuteTest(templatePath string) {
