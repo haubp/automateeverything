@@ -19,10 +19,10 @@ func ExecuteTest(templatePath string) {
 	fmt.Println("Run test for category", testTemplate.TestCategoryName)
 	for _, group := range testTemplate.TestCategoryGroups {
 		fmt.Println("	Run test for group", group.TestGroupName)
-		for _, test := range group.TestGroupTests {
-			fmt.Println("		Run test for test", test.TestName)
+		for _, test := range group.TestGroupTestCases {
+			fmt.Println("		Run test for test", test.TestCaseName)
 			capturedTime := time.Now()
-			for _, step := range test.TestSteps {
+			for _, step := range test.TestCaseSteps {
 				fmt.Println("			Run step", step.StepName)
 				if step.StepAction == "CaptureTime" {
 					capturedTime = time.Now()

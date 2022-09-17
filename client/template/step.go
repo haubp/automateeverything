@@ -4,6 +4,10 @@ import (
 	"fmt"
 	hook "github.com/robotn/gohook"
 	"github.com/go-vgo/robotgo"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2/container"
 )
 
 type Step struct {
@@ -12,6 +16,8 @@ type Step struct {
 	StepParams []interface{} `json:"step_params"`
 	PreSleep int `json:"step_pre_sleep"`
 	PostSleep int `json:"step_post_sleep"`
+	Widget *fyne.Container
+	W *fyne.Window
 }
 
 func MakeSteps() []Step {
@@ -109,4 +115,13 @@ func MakeSteps() []Step {
   fmt.Println(steps)
 
   return steps;
+}
+
+func (c * Step) InitContext(w *fyne.Window) {
+	c.W = w
+	c.Widget = container.New(layout.NewHBoxLayout(),
+		widget.NewLabel("\t\t\t\t* " + c.StepName),
+		layout.NewSpacer(),
+		widget.NewButton("x", func(){}),
+	)
 }

@@ -3,7 +3,6 @@ package main
 import (
 	// "automateeverything.com/v2/runner"
 	"automateeverything.com/v2/template"
-	"automateeverything.com/v2/cwidget"
 
 	"fmt"
 	"image/color"
@@ -75,21 +74,14 @@ func createTestPage(a fyne.App, t *template.TestCategory) *fyne.Container {
 		}),
 	)
 
-	// var testGroupWidgets []cWidget.TestWidget
-	// var testCaseWidgets []cWidget.TestWidget
-
 	var displayWidget []fyne.CanvasObject
-	var referenceWidget []cwidget.TestWidget
 
-	displayWidget = append(displayWidget, widget.NewLabel(t.TestCategoryName))
-	referenceWidget = append(referenceWidget, cwidget.NewCategoryWidget(t))
+	displayWidget = append(displayWidget, t.GetWidget())
 	
-	for _, group := range t.TestCategoryGroups {
-		displayWidget = append(displayWidget, widget.NewLabel(group.TestGroupName))
-		
-		for _, test := range group.TestGroupTestCases {
-			displayWidget = append(displayWidget, widget.NewLabel(test.TestName))
-
+	for groupIndex := range t.TestCategoryGroups {
+		displayWidget = append(displayWidget, t.TestCategoryGroups[groupIndex].GetWidget())
+		for testIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
+			displayWidget = append(displayWidget, t.TestCategoryGroups[groupIndex].TestGroupTestCases[testIndex].GetWidget())
 		}
 	}
 
@@ -151,13 +143,20 @@ func main() {
 	// category := template.TestCategory{TestCategoryName:"any", TestCategoryGroups: []template.TestGroup{group}}
 	// template.CreateJsonFileFromTemplate("myTemplate2.json", category)
 
-	t, _ := template.CreateTestFromJsonFile("myTemplate.json")
-	fmt.Println(t)
-
 	myApp := app.New()
 	myApp.Settings().SetTheme(theme.DarkTheme())
 	w := myApp.NewWindow("Automation Testing")
 	w.Resize(fyne.NewSize(800, 800))
+
+	// Test data
+	t, _ := template.CreateTestFromJsonFile("myTemplate.json")
+	t.InitContext(&w)
+	for groupIndex := range t.TestCategoryGroups {
+		t.TestCategoryGroups[groupIndex].InitContext(&w)
+		for testIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
+			t.TestCategoryGroups[groupIndex].TestGroupTestCases[testIndex].InitContext(&w)
+		}
+	}
 
 	// Menu
 	w.SetMainMenu(createMenu())
