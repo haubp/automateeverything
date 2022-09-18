@@ -35,7 +35,7 @@
       "name": "check_enable_log",
       "test_steps": [
        {
-        "step_name": "Open Chrome",
+        "step_name": "Open Chrome 2",
         "step_action": "MoveMouse",
         "step_params": [
          1411,
@@ -43,7 +43,7 @@
         ]
        },
        {
-        "step_name": "Check core.log",
+        "step_name": "Check core.log 2",
         "step_action": "CheckLog",
         "step_params": [
          "core.log",

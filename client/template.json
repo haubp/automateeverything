@@ -5,7 +5,7 @@
             "test_group_name": "test",
             "test_group_tests": [
                 {
-                    "test_name": "test_case_1",
+                    "name": "test_case_1",
                     "test_steps": [
                         {
                             "step_name": "step_1",

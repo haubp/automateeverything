@@ -8,6 +8,8 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/canvas"
+	"image/color"
 )
 
 // Step type
@@ -24,7 +26,7 @@ type Step struct {
 
 // MakeSteps auto
 func MakeSteps() []Step {
-	steps := []Step{}
+  steps := []Step{}
 
   fmt.Println("Start Hook")
 
@@ -125,9 +127,11 @@ func (c * Step) InitContext(a fyne.App, w fyne.Window) {
 	c.W = w
 	c.A = a
 	c.Widget = container.New(layout.NewHBoxLayout(),
-		widget.NewLabel("\t\t\t\t* " + c.StepName),
+		canvas.NewText(c.StepName, color.RGBA{0xD8, 0xD8, 0xD8, 1}), 
 		layout.NewSpacer(),
-		widget.NewButton("x", func(){}),
+		widget.NewButton("X", func(){
+		
+		}),
 	)
 }
 

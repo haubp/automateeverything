@@ -12,6 +12,7 @@ import (
 	_ "image/png"
 )
 
+// LoadImageFromFile 0: image path
 func LoadImageFromFile(params []interface{}) image.Image {
 	imageFile, _ := os.Open(params[0].(string))
 	defer imageFile.Close()
@@ -19,6 +20,7 @@ func LoadImageFromFile(params []interface{}) image.Image {
 	return img
 }
 
+// CheckLog 0: log path 1: log pattern 2: start at
 func CheckLog(params []interface{}) bool {
 	found := false
 

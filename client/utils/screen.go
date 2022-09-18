@@ -16,9 +16,9 @@ func IsOnScreen(params []interface{}) bool {
   	screenImg := robotgo.ToImage(screenBit)
 	s := lookup.NewLookup(screenImg)
 
-	templatePathList := []interface{}{params[0].(string)}
+	templatePath := []interface{}{params[0].(string)}
 
-	template := LoadImageFromFile(templatePathList)
+	template := LoadImageFromFile(templatePath)
 
 	pp, _ := s.FindAll(template, 0.9)
 

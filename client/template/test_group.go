@@ -22,22 +22,22 @@ type TestGroup struct {
 
 // InitContext Init context for test group
 func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
-	c.DisplayTestCases = true
+	c.DisplayTestCases = false
 	c.W = w
 	c.A = a
 	c.Category = t
 	c.Widget = container.New(layout.NewHBoxLayout(),
-		container.NewMax(canvas.NewRectangle(color.RGBA{0, 0, 100, 1}), widget.NewLabel(c.TestGroupName)),
+		canvas.NewText(" \t\t" + c.TestGroupName, color.RGBA{0x56, 0x2B, 0x08, 1}),
 		layout.NewSpacer(),
 		widget.NewButton("...", func(){
 			c.DisplayTestCases = !c.DisplayTestCases
 			if c.DisplayTestCases {
 				for i := range c.TestGroupTestCases {
-					c.TestGroupTestCases[i].ShowAll()
+					c.TestGroupTestCases[i].Widget.Show()
 				}
 			} else {
 				for i := range c.TestGroupTestCases {
-					c.TestGroupTestCases[i].HideAll()
+					c.TestGroupTestCases[i].Widget.Hide()
 				}
 			}
 		}),
@@ -53,19 +53,11 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 														layout.NewSpacer(),
 														widget.NewButton("Add", func(){
 															newTestCase := TestCase{TestCaseName: testCaseNameEntry.Text, TestCaseSteps: make([]Step, 0) }
-															newTestCase.InitContext(c.A, c.W)
+															newTestCase.InitContext(c.A, c.W, c.Category)
+															newTestCase.Widget.Show()
 															c.TestGroupTestCases = append(c.TestGroupTestCases, newTestCase)
 
-															// TODO: UPDATE HERE
-															// Run Test Page
-															tabs := container.NewAppTabs(
-																container.NewTabItem("Create Test", CreateTestPage(c.A, c.Category)),
-																container.NewTabItem("Run Test", CreateRunTestPage(c.A, c.Category)),
-															)
-															tabs.SetTabLocation(container.TabLocationLeading)
-														
-															c.W.CenterOnScreen()
-															w.SetContent(tabs)
+															UpdateUI(c.A, c.W, c.Category)
 
 															newW.Close()
 														}),
@@ -77,25 +69,15 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 			newW.Show()
 		}),
 	)
+	c.Widget.Hide()
 }
 
 // HideAll hide all child test cases
-func (c * TestGroup) HideAll() {
+func (c * TestGroup) HideAllChild() {
 	c.Widget.Hide()
 	for i := range c.TestGroupTestCases {
 		if c.TestGroupTestCases[i].Widget != nil {
 			c.TestGroupTestCases[i].Widget.Hide()
-		}
-		
-	}
-}
-
-// ShowAll show all child test cases
-func (c * TestGroup) ShowAll() {
-	c.Widget.Show()
-	for i := range c.TestGroupTestCases {
-		if c.TestGroupTestCases[i].Widget != nil {
-			c.TestGroupTestCases[i].Widget.Show()
 		}
 	}
 }

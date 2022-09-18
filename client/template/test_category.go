@@ -21,21 +21,23 @@ type TestCategory struct {
 
 // InitContext init test category
 func (c * TestCategory) InitContext(a fyne.App, w fyne.Window) {
-	c.DisplayTestGroups = true
+	c.DisplayTestGroups = false
 	c.W = w
 	c.A = a
 	c.Widget = container.New(layout.NewHBoxLayout(),
-		container.NewMax(canvas.NewRectangle(color.RGBA{100, 0, 0, 1}), widget.NewLabel(c.TestCategoryName)), 
+		canvas.NewText(" Category:  " + c.TestCategoryName, color.RGBA{0xD8, 0xD8, 0xD8, 1}), 
 		layout.NewSpacer(), 
 		widget.NewButton("...", func(){
 			c.DisplayTestGroups = !c.DisplayTestGroups
 			if c.DisplayTestGroups {
 				for i := range c.TestCategoryGroups {
-					c.TestCategoryGroups[i].ShowAll()
+					c.TestCategoryGroups[i].Widget.Show()
+					c.TestCategoryGroups[i].DisplayTestCases = false
 				}
 			} else {
 				for i := range c.TestCategoryGroups {
-					c.TestCategoryGroups[i].HideAll()
+					c.TestCategoryGroups[i].Widget.Hide()
+					c.TestCategoryGroups[i].HideAllChild()
 				}
 			}
 		}),
@@ -52,18 +54,10 @@ func (c * TestCategory) InitContext(a fyne.App, w fyne.Window) {
 														widget.NewButton("Add", func(){
 															newGroup := TestGroup{TestGroupName: testGroupNameEntry.Text, TestGroupTestCases: make([]TestCase, 0) }
 															newGroup.InitContext(c.A, c.W, c)
+															newGroup.Widget.Show()
 															c.TestCategoryGroups = append(c.TestCategoryGroups, newGroup)
 
-															// TODO: UPDATE HERE
-															// Run Test Page
-															tabs := container.NewAppTabs(
-																container.NewTabItem("Create Test", CreateTestPage(c.A, c)),
-																container.NewTabItem("Run Test", CreateRunTestPage(c.A, c)),
-															)
-															tabs.SetTabLocation(container.TabLocationLeading)
-														
-															c.W.CenterOnScreen()
-															w.SetContent(tabs)
+															UpdateUI(c.A, c.W, c)
 
 															newW.Close()
 														}),

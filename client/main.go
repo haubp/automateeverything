@@ -22,14 +22,24 @@ func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainM
         // _ is ignore error
         fileDialog := dialog.NewFileOpen(
             func(r fyne.URIReadCloser, _ error) {
+				template.SelectedTestCase = nil
                 // read files
                 data, _ := ioutil.ReadAll(r)
 				tt, _ := template.CreateTestFromBytes(data)
 				*t = tt
-
+				t.InitContext(a, w)
+				for groupIndex := range t.TestCategoryGroups {
+					t.TestCategoryGroups[groupIndex].InitContext(a, w, t)
+					for testCaseIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
+						t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].InitContext(a, w, t)
+						for testStepIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].TestCaseSteps {
+							t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].TestCaseSteps[testStepIndex].InitContext(a, w)
+						}
+					}
+				}
 				tabs := container.NewAppTabs(
-					container.NewTabItem("Create Test", template.CreateTestPage(a, t)),
-					container.NewTabItem("Run Test", template.CreateRunTestPage(a, t)),
+					container.NewTabItem("Create Test", template.CreateTestPage(a, w, t)),
+					container.NewTabItem("Run Test", template.CreateRunTestPage(a, w, t)),
 				)
 				tabs.SetTabLocation(container.TabLocationLeading)
 			
@@ -62,12 +72,12 @@ func main() {
 	w.Resize(fyne.NewSize(800, 800))
 
 	// Test data
-	t, _ := template.CreateTestFromJSONFile("test.json")
+	t, _ := template.CreateTestFromJSONFile("template.json")
 	t.InitContext(myApp, w)
 	for groupIndex := range t.TestCategoryGroups {
 		t.TestCategoryGroups[groupIndex].InitContext(myApp, w, &t)
 		for testCaseIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
-			t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].InitContext(myApp, w)
+			t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].InitContext(myApp, w, &t)
 			for testStepIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].TestCaseSteps {
 				t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].TestCaseSteps[testStepIndex].InitContext(myApp, w)
 			}
@@ -79,8 +89,8 @@ func main() {
 
 	// Tabs
 	tabs := container.NewAppTabs(
-		container.NewTabItem("Create Test", template.CreateTestPage(myApp, &t)),
-		container.NewTabItem("Run Test", template.CreateRunTestPage(myApp, &t)),
+		container.NewTabItem("Create Test", template.CreateTestPage(myApp, w, &t)),
+		container.NewTabItem("Run Test", template.CreateRunTestPage(myApp, w, &t)),
 	)
 	tabs.SetTabLocation(container.TabLocationLeading)
 
