@@ -10,16 +10,19 @@ import (
 	"fyne.io/fyne/v2/container"
 )
 
+// Step type
 type Step struct {
 	StepName string `json:"step_name"`
 	StepAction string `json:"step_action"`
 	StepParams []interface{} `json:"step_params"`
 	PreSleep int `json:"step_pre_sleep"`
 	PostSleep int `json:"step_post_sleep"`
-	Widget *fyne.Container
-	W *fyne.Window
+	Widget *fyne.Container `json:"-"`
+	W fyne.Window `json:"-"`
+	A fyne.App `json:"-"`
 }
 
+// MakeSteps auto
 func MakeSteps() []Step {
 	steps := []Step{}
 
@@ -117,11 +120,18 @@ func MakeSteps() []Step {
   return steps;
 }
 
-func (c * Step) InitContext(w *fyne.Window) {
+// InitContext init step context
+func (c * Step) InitContext(a fyne.App, w fyne.Window) {
 	c.W = w
+	c.A = a
 	c.Widget = container.New(layout.NewHBoxLayout(),
 		widget.NewLabel("\t\t\t\t* " + c.StepName),
 		layout.NewSpacer(),
 		widget.NewButton("x", func(){}),
 	)
+}
+
+// GetWidget get test case widget
+func (c * Step) GetWidget() *fyne.Container {
+	return c.Widget
 }

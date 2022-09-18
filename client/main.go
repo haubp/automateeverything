@@ -4,134 +4,47 @@ import (
 	// "automateeverything.com/v2/runner"
 	"automateeverything.com/v2/template"
 
-	"fmt"
-	"image/color"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/layout"
-	"fyne.io/fyne/v2/widget"
 	"fyne.io/fyne/v2/theme"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/storage"
+	"io/ioutil"
 )
 
-func createMenu() *fyne.MainMenu {
+func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainMenu {
 	importItem := fyne.NewMenuItem("Import", func() {
-		fmt.Println("Import pressed")
+		// Using dialogs to open files
+        // first argument func(fyne.URIReadCloser, error)
+        // 2nd is parent window in our case "w"
+        // r for reader
+        // _ is ignore error
+        fileDialog := dialog.NewFileOpen(
+            func(r fyne.URIReadCloser, _ error) {
+                // read files
+                data, _ := ioutil.ReadAll(r)
+				tt, _ := template.CreateTestFromBytes(data)
+				*t = tt
+
+				tabs := container.NewAppTabs(
+					container.NewTabItem("Create Test", template.CreateTestPage(a, t)),
+					container.NewTabItem("Run Test", template.CreateRunTestPage(a, t)),
+				)
+				tabs.SetTabLocation(container.TabLocationLeading)
+			
+				w.CenterOnScreen()
+				w.SetContent(tabs)
+            }, w)
+        fileDialog.SetFilter(
+            storage.NewExtensionFileFilter([]string{".json"}))
+        fileDialog.Show()
 	})
+
 	fileMenu := fyne.NewMenu("File", importItem)
 	menu := fyne.NewMainMenu(fileMenu)
 
 	return menu
-}
-
-func createTestPage(a fyne.App, t *template.TestCategory) *fyne.Container {
-	captureTime := container.New(
-		layout.NewHBoxLayout(),
-		widget.NewLabel("Capture Time"),
-		layout.NewSpacer(),
-		widget.NewButton("+", func(){}),
-	)
-	checkLog := container.New(
-		layout.NewHBoxLayout(), 
-		widget.NewLabel("Check Log"),
-		layout.NewSpacer(),
-		widget.NewButton("+", func(){
-			checkLogConfigWindow := a.NewWindow("Check Log Configuration")
-			content := container.New(
-				layout.NewGridLayoutWithRows(4),
-				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("Path"), widget.NewEntry()),
-				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("pattern"), widget.NewEntry()),
-				layout.NewSpacer(),
-				container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Finish", func(){
-					checkLogConfigWindow.Close()
-				})),
-			)
-			checkLogConfigWindow.SetContent(content)
-			checkLogConfigWindow.Resize(fyne.NewSize(400, 50))
-			checkLogConfigWindow.CenterOnScreen()
-			checkLogConfigWindow.Show()
-		}))
-	scanScreen := container.New(
-		layout.NewHBoxLayout(),
-		widget.NewLabel("Scan Screen"),
-		layout.NewSpacer(),
-		widget.NewButton("+", func(){
-			scanScreenConfigWindow := a.NewWindow("Scan Screen Configuration")
-			content := container.New(
-				layout.NewGridLayoutWithRows(3),
-				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("Image Path"), widget.NewEntry()),
-				layout.NewSpacer(),
-				container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Finish", func(){
-					scanScreenConfigWindow.Close()
-				})),
-			)
-			scanScreenConfigWindow.SetContent(content)
-			scanScreenConfigWindow.Resize(fyne.NewSize(400, 50))
-			scanScreenConfigWindow.CenterOnScreen()
-			scanScreenConfigWindow.Show()
-		}),
-	)
-
-	var displayWidget []fyne.CanvasObject
-
-	displayWidget = append(displayWidget, t.GetWidget())
-	
-	for groupIndex := range t.TestCategoryGroups {
-		displayWidget = append(displayWidget, t.TestCategoryGroups[groupIndex].GetWidget())
-		for testIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
-			displayWidget = append(displayWidget, t.TestCategoryGroups[groupIndex].TestGroupTestCases[testIndex].GetWidget())
-		}
-	}
-
-	t4 := widget.NewButton("Add New Step", func() {
-		newActionWindow := a.NewWindow("New Action")
-		content := container.New(layout.NewMaxLayout(), widget.NewCard("Step Action", "", container.New(
-			layout.NewGridLayoutWithRows(5),
-			captureTime,
-			checkLog,
-			scanScreen,
-			layout.NewSpacer(),
-			container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Add", func(){
-				newActionWindow.Close()
-			})),
-		)))
-		newActionWindow.SetContent(content)
-		newActionWindow.Resize(fyne.NewSize(400, 50))
-		newActionWindow.CenterOnScreen()
-		newActionWindow.Show()
-	})
-
-	c1 := container.NewVScroll(
-        container.NewVBox(
-            displayWidget...
-        ),
-    )
-
-	c2 := container.NewVScroll(
-        container.NewVBox(
-            t4,
-        ),
-    )
-
-	b := widget.NewButton("Export", func(){})
-
-	line := canvas.NewLine(color.White)
-	line.StrokeWidth = 1
-	line.StrokeColor = color.White
-	line.Position1 = fyne.NewPos(0, 0)
-	line.Position2 = fyne.NewPos(0, 100)
-
-	createTestPage := container.New(
-		layout.NewGridLayoutWithRows(2), 
-		container.New(	layout.NewGridLayoutWithColumns(2), 
-						c1,
-						container.New(layout.NewHBoxLayout(), line, c2),
-						),
-		container.New(layout.NewVBoxLayout(), layout.NewSpacer(), container.New(layout.NewHBoxLayout(), layout.NewSpacer(), b)))
-
-	return createTestPage
 }
 
 func main() {
@@ -149,39 +62,30 @@ func main() {
 	w.Resize(fyne.NewSize(800, 800))
 
 	// Test data
-	t, _ := template.CreateTestFromJsonFile("myTemplate.json")
-	t.InitContext(&w)
+	t, _ := template.CreateTestFromJSONFile("test.json")
+	t.InitContext(myApp, w)
 	for groupIndex := range t.TestCategoryGroups {
-		t.TestCategoryGroups[groupIndex].InitContext(&w)
-		for testIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
-			t.TestCategoryGroups[groupIndex].TestGroupTestCases[testIndex].InitContext(&w)
+		t.TestCategoryGroups[groupIndex].InitContext(myApp, w, &t)
+		for testCaseIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases {
+			t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].InitContext(myApp, w)
+			for testStepIndex := range t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].TestCaseSteps {
+				t.TestCategoryGroups[groupIndex].TestGroupTestCases[testCaseIndex].TestCaseSteps[testStepIndex].InitContext(myApp, w)
+			}
 		}
 	}
 
 	// Menu
-	w.SetMainMenu(createMenu())
-
-	// Create Test Page
-	createTestPage := createTestPage(myApp, &t)
-
-	// Run Test Page
-	importTestButton := widget.NewButton("Import", func() {
-		fmt.Println("Import clicked")
-	})
-	testProgress := widget.NewProgressBar()
-	runTestButton := widget.NewButton("Run", func() {
-		fmt.Println("tapped")
-	})
-	runTestPage := container.New(layout.NewGridLayoutWithRows(3), importTestButton, testProgress, runTestButton)
+	w.SetMainMenu(createMenu(myApp, w, &t))
 
 	// Tabs
 	tabs := container.NewAppTabs(
-		container.NewTabItem("Create Test", createTestPage),
-		container.NewTabItem("Run Test", runTestPage),
+		container.NewTabItem("Create Test", template.CreateTestPage(myApp, &t)),
+		container.NewTabItem("Run Test", template.CreateRunTestPage(myApp, &t)),
 	)
 	tabs.SetTabLocation(container.TabLocationLeading)
 
 	w.CenterOnScreen()
 	w.SetContent(tabs)
-	w.ShowAndRun()
+	w.Show()
+	myApp.Run()
 }

@@ -11,7 +11,7 @@ import (
 func ExecuteTest(templatePath string) {
 	actionsMap := utils.ActionsMap()
 
-	testTemplate, err := template.CreateTestFromJsonFile(templatePath)
+	testTemplate, err := template.CreateTestFromJSONFile(templatePath)
 	if err != nil {
 		fmt.Println("Error ", err.Error())
 	}
