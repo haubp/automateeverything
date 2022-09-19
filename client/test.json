@@ -5,14 +5,14 @@
    "test_group_name": "test",
    "test_group_tests": [
     {
-     "name": "check_mouse",
+     "name": "test_mouse",
      "test_steps": [
       {
        "step_name": "Move Mouse",
        "step_action": "MoveMouse",
        "step_params": [
-        1866,
-        29
+        1892,
+        24
        ],
        "step_pre_sleep": 1000,
        "step_post_sleep": 1000
@@ -30,8 +30,8 @@
        "step_name": "Move Mouse",
        "step_action": "MoveMouse",
        "step_params": [
-        1239,
-        611
+        1244,
+        620
        ],
        "step_pre_sleep": 1000,
        "step_post_sleep": 1000

@@ -271,7 +271,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 }
 
 // CreateRunTestPage Creat Run Test Page widget
-func CreateRunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
+func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	var t TestCategory
 	runTestButton := widget.NewButton("Run", func() {
 		ExecuteTestFromTemplate(&t)
@@ -316,7 +316,7 @@ func CreateRunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 func UpdateUI(a fyne.App, w fyne.Window, t *TestCategory) {
 	tabs := container.NewAppTabs(
 		container.NewTabItem("Create Test", CreateTestPage(a, w, t)),
-		container.NewTabItem("Run Test", CreateRunTestPage(a, w)),
+		container.NewTabItem("Run Test", RunTestPage(a, w)),
 	)
 	tabs.SetTabLocation(container.TabLocationLeading)
 

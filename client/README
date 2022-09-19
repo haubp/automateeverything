@@ -1,0 +1,8 @@
+TODO:
+    1. Check decrypt log
+    2. Enter text from keyboard action, enhance UX
+
+Useful Command:
+1. Creat fyne package
+    go install fyne.io/fyne/v2/cmd/fyne@latest
+    fyne package -os windows -icon icon.png
