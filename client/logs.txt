@@ -85,3 +85,9 @@
 2022/09/19 17:21:42 				 Success
 2022/09/19 17:21:43 			Run step Keyboard Typing
 2022/09/19 17:21:44 				 Success
+2022/09/19 17:23:32 Successfully Opened  template.json
+2022/09/19 17:26:03 Successfully Opened  template.json
+2022/09/19 17:26:12 Start Hook
+2022/09/19 17:26:12 Listening
+2022/09/19 17:26:14 click 1560 179
+2022/09/19 17:26:15 exit

@@ -84,6 +84,8 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 
 			SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, sl...)
 
+			UpdateUI(a, w, t)
+
 			newW.Close()
 		}),
 	)
@@ -92,7 +94,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 		widget.NewLabel("  Keyboard Action"),
 		layout.NewSpacer(),
 		widget.NewButton("+", func(){
-			checkLogConfigWindow := a.NewWindow("keyboard Typing Configuration")
+			keyboardTypingConfigWindow := a.NewWindow("keyboard Typing Configuration")
 			stringEntry := widget.NewEntry()
 			content := container.New(
 				layout.NewGridLayoutWithRows(4),
@@ -110,13 +112,15 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 
 					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
 
-					checkLogConfigWindow.Close()
+					UpdateUI(a, w, t)
+
+					keyboardTypingConfigWindow.Close()
 				})),
 			)
-			checkLogConfigWindow.SetContent(content)
-			checkLogConfigWindow.Resize(fyne.NewSize(400, 50))
-			checkLogConfigWindow.CenterOnScreen()
-			checkLogConfigWindow.Show()
+			keyboardTypingConfigWindow.SetContent(content)
+			keyboardTypingConfigWindow.Resize(fyne.NewSize(400, 50))
+			keyboardTypingConfigWindow.CenterOnScreen()
+			keyboardTypingConfigWindow.Show()
 		}))
 	checkLog := container.New(
 		layout.NewHBoxLayout(), 
@@ -142,6 +146,8 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 					newStep.InitContext(a, w)
 
 					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
+
+					UpdateUI(a, w, t)
 
 					checkLogConfigWindow.Close()
 				})),
@@ -172,6 +178,9 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 					}
 					newStep.InitContext(a, w)
 					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
+
+					UpdateUI(a, w, t)
+
 					scanScreenConfigWindow.Close()
 				})),
 			)
@@ -200,7 +209,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 	}
 
 	addNewStepButton := widget.NewButton("Add New Step", func() {
-		newActionWindow := a.NewWindow("Recording...")
+		newActionWindow := a.NewWindow("Add New Step")
 		content := container.New(layout.NewMaxLayout(), widget.NewCard("", "Action:", container.New(
 			layout.NewGridLayoutWithRows(6),
 			manualAction,
