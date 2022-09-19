@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "automateeverything.com/v2/runner"
 	"automateeverything.com/v2/template"
 
 	"fyne.io/fyne/v2"
@@ -39,7 +38,7 @@ func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainM
 				}
 				tabs := container.NewAppTabs(
 					container.NewTabItem("Create Test", template.CreateTestPage(a, w, t)),
-					container.NewTabItem("Run Test", template.CreateRunTestPage(a, w, t)),
+					container.NewTabItem("Run Test", template.CreateRunTestPage(a, w)),
 				)
 				tabs.SetTabLocation(container.TabLocationLeading)
 			
@@ -57,6 +56,8 @@ func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainM
 	return menu
 }
 
+// TODO: check decrypt log, enter text from keyboard action, enhance UX
+
 func main() {
 	// runner.ExecuteTest("myTemplate.json")
 
@@ -69,7 +70,7 @@ func main() {
 	myApp := app.New()
 	myApp.Settings().SetTheme(theme.DarkTheme())
 	w := myApp.NewWindow("Automation Testing")
-	w.Resize(fyne.NewSize(800, 800))
+	w.Resize(fyne.NewSize(1100, 800))
 
 	// Test data
 	t, _ := template.CreateTestFromJSONFile("template.json")
@@ -90,7 +91,7 @@ func main() {
 	// Tabs
 	tabs := container.NewAppTabs(
 		container.NewTabItem("Create Test", template.CreateTestPage(myApp, w, &t)),
-		container.NewTabItem("Run Test", template.CreateRunTestPage(myApp, w, &t)),
+		container.NewTabItem("Run Test", template.CreateRunTestPage(myApp, w)),
 	)
 	tabs.SetTabLocation(container.TabLocationLeading)
 

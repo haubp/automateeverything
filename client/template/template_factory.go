@@ -3,6 +3,7 @@ package template
 import (
 	"fmt"
 	"os"
+	"time"
 	"io/ioutil"
 	"image/color"
 	"encoding/json"
@@ -10,9 +11,14 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2"
+
+	"automateeverything.com/v2/utils"
 )
 
+// SelectedTestCase Global Selected Test Case => TODO: Need to remove global variable
 var SelectedTestCase *TestCase
 
 // CreateTestFromJSONFile Creat Test Struct from json file
@@ -43,8 +49,15 @@ func CreateTestFromBytes(b []byte) (TestCategory, error) {
 
 // CreateJSONFileFromTemplate Creat json file from Test Struct
 func CreateJSONFileFromTemplate(templatePath string, test TestCategory) {
-	file, _ := json.MarshalIndent(test, "", " ")
-	_ = ioutil.WriteFile(templatePath, file, 0644)
+	file, e := json.MarshalIndent(test, "", " ")
+	if e != nil {
+		fmt.Println(e)
+	}
+	fmt.Println(test)
+	e = ioutil.WriteFile(templatePath, file, 0644)
+	if e != nil {
+		fmt.Println(e)
+	}
 }
 
 // CreateTestPage Creat make Test Page widget
@@ -66,7 +79,15 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 			newW.Show()
 
 			sl := MakeSteps()
+			for i := range sl {
+				sl[i].InitContext(a, w)
+			}
+
+			fmt.Printf("selected now point to %p\n", SelectedTestCase)
+
 			SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, sl...)
+
+			fmt.Printf("t test case %p", &t.TestCategoryGroups[0].TestGroupTestCases[0])
 
 			newW.Close()
 		}),
@@ -85,15 +106,16 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("pattern"), logPattern),
 				layout.NewSpacer(),
 				container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Finish", func(){
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, 
-						Step{
-							StepName: "Check Log",
-							StepAction: "CheckLog",
-							StepParams: []interface{}{logPathEntry.Text, logPattern.Text},
-							PreSleep: 1000,
-							PostSleep: 1000,
-						},
-					)
+					newStep := Step{
+						StepName: "Check Log",
+						StepAction: "CheckLog",
+						StepParams: []interface{}{logPathEntry.Text, logPattern.Text},
+						PreSleep: 1000,
+						PostSleep: 1000,
+					}
+					newStep.InitContext(a, w)
+
+					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
 
 					checkLogConfigWindow.Close()
 				})),
@@ -115,15 +137,15 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("Image Path"), imgPathEntry),
 				layout.NewSpacer(),
 				container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Finish", func(){
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, 
-						Step{
-							StepName: "Check Log",
-							StepAction: "CheckLog",
-							StepParams: []interface{}{imgPathEntry.Text},
-							PreSleep: 1000,
-							PostSleep: 1000,
-						},
-					)
+					newStep := Step{
+						StepName: "Check Log",
+						StepAction: "CheckLog",
+						StepParams: []interface{}{imgPathEntry.Text},
+						PreSleep: 1000,
+						PostSleep: 1000,
+					}
+					newStep.InitContext(a, w)
+					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
 					scanScreenConfigWindow.Close()
 				})),
 			)
@@ -149,7 +171,6 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 		for stepIndex := range SelectedTestCase.TestCaseSteps {
 			displayStepWidgets = append(displayStepWidgets, SelectedTestCase.TestCaseSteps[stepIndex].GetWidget())
 		}
-		fmt.Println(displayStepWidgets)
 	}
 
 	addNewStepButton := widget.NewButton("Add New Step", func() {
@@ -211,6 +232,11 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 	line.Position1 = fyne.NewPos(0, 0)
 	line.Position2 = fyne.NewPos(0, 100)
 
+	selectedTestCaseIndicator := widget.NewLabel("")
+	if SelectedTestCase != nil {
+		selectedTestCaseIndicator.SetText(SelectedTestCase.TestCaseName + " selected: ")
+	}
+	
 	testPageContainer := container.New(
 		layout.NewGridLayoutWithRows(2), 
 		container.New(	layout.NewGridLayoutWithColumns(2), 
@@ -218,6 +244,8 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 						container.New(	layout.NewGridLayoutWithRows(2), 
 										container.New(	layout.NewHBoxLayout(), 
 														line, 
+														selectedTestCaseIndicator,
+														line,
 														c2),
 										container.New(	layout.NewHBoxLayout(), 
 														layout.NewSpacer(),
@@ -243,16 +271,44 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 }
 
 // CreateRunTestPage Creat Run Test Page widget
-func CreateRunTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container {
-	importTestButton := widget.NewButton("Import", func() {
-		fmt.Println("Import clicked")
-	})
-	testProgress := widget.NewProgressBar()
+func CreateRunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
+	var t TestCategory
 	runTestButton := widget.NewButton("Run", func() {
-		fmt.Println("tapped")
+		ExecuteTestFromTemplate(&t)
 	})
-	runTestPage := container.New(layout.NewGridLayoutWithRows(3), importTestButton, testProgress, runTestButton)
-
+	templateFileSelectedLabelIndicator := widget.NewLabel("Template not selected")
+	importTestButton := widget.NewButton("Import", func() {
+		fileDialog := dialog.NewFileOpen(
+            func(r fyne.URIReadCloser, _ error) {
+                // read files
+                data, _ := ioutil.ReadAll(r)
+				t, _ = CreateTestFromBytes(data)
+				templateFileSelectedLabelIndicator.SetText("Template selected")
+            }, w)
+        fileDialog.SetFilter(storage.NewExtensionFileFilter([]string{".json"}))
+        fileDialog.Show()
+	})
+	runTestPage := container.New(	layout.NewGridLayoutWithRows(3), 
+									container.New(	layout.NewVBoxLayout(), 
+													layout.NewSpacer(), 
+													container.New(	layout.NewHBoxLayout(), 
+																	importTestButton, 
+																	layout.NewSpacer()),
+													layout.NewSpacer()),
+									container.New(	layout.NewVBoxLayout(), 
+													layout.NewSpacer(), 
+													container.New(	layout.NewHBoxLayout(), 
+																	templateFileSelectedLabelIndicator, 
+																	layout.NewSpacer()),
+													layout.NewSpacer()),
+									container.New(	layout.NewVBoxLayout(), 
+													layout.NewSpacer(), 
+													container.New(	layout.NewHBoxLayout(), 
+																	layout.NewSpacer(),
+																	runTestButton,
+																	layout.NewSpacer()),
+													layout.NewSpacer()),
+								)
 	return runTestPage
 }
 
@@ -260,10 +316,81 @@ func CreateRunTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Contain
 func UpdateUI(a fyne.App, w fyne.Window, t *TestCategory) {
 	tabs := container.NewAppTabs(
 		container.NewTabItem("Create Test", CreateTestPage(a, w, t)),
-		container.NewTabItem("Run Test", CreateRunTestPage(a, w, t)),
+		container.NewTabItem("Run Test", CreateRunTestPage(a, w)),
 	)
 	tabs.SetTabLocation(container.TabLocationLeading)
 
 	w.CenterOnScreen()
 	w.SetContent(tabs)
+}
+
+// ExecuteTestFromTemplatePath execute test from file path
+func ExecuteTestFromTemplatePath(templatePath string) {
+	actionsMap := utils.ActionsMap()
+
+	testTemplate, err := CreateTestFromJSONFile(templatePath)
+	if err != nil {
+		fmt.Println("Error ", err.Error())
+	}
+
+	fmt.Println("Run test for category", testTemplate.TestCategoryName)
+	for _, group := range testTemplate.TestCategoryGroups {
+		fmt.Println("	Run test for group", group.TestGroupName)
+		for _, test := range group.TestGroupTestCases {
+			fmt.Println("		Run test for test", test.TestCaseName)
+			capturedTime := time.Now()
+			for _, step := range test.TestCaseSteps {
+				fmt.Println("			Run step", step.StepName)
+				if step.StepAction == "CaptureTime" {
+					capturedTime = time.Now()
+				} else {
+					if step.StepAction == "CheckLog" {
+						step.StepParams = append(step.StepParams, capturedTime)
+					}
+
+					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
+					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
+						fmt.Println("				", "Success")
+					} else {
+						fmt.Println("				", "Failed")
+						break
+					}
+					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
+				}
+			}
+		}
+	}
+}
+
+// ExecuteTestFromTemplate execute test from file bytes
+func ExecuteTestFromTemplate(t *TestCategory) {
+	actionsMap := utils.ActionsMap()
+
+	fmt.Println("Run test for category", t.TestCategoryName)
+	for _, group := range t.TestCategoryGroups {
+		fmt.Println("	Run test for group", group.TestGroupName)
+		for _, test := range group.TestGroupTestCases {
+			fmt.Println("		Run test for test", test.TestCaseName)
+			capturedTime := time.Now()
+			for _, step := range test.TestCaseSteps {
+				fmt.Println("			Run step", step.StepName)
+				if step.StepAction == "CaptureTime" {
+					capturedTime = time.Now()
+				} else {
+					if step.StepAction == "CheckLog" {
+						step.StepParams = append(step.StepParams, capturedTime)
+					}
+
+					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
+					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
+						fmt.Println("				", "Success")
+					} else {
+						fmt.Println("				", "Failed")
+						break
+					}
+					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
+				}
+			}
+		}
+	}
 }

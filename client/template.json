@@ -4,18 +4,6 @@
         { 
             "test_group_name": "test",
             "test_group_tests": [
-                {
-                    "name": "test_case_1",
-                    "test_steps": [
-                        {
-                            "step_name": "step_1",
-                            "step_action": "IsOnScreen",
-                            "step_params": [
-                                "test_1.png"
-                            ]
-                        }
-                    ]
-                }
             ]
         }
     ]

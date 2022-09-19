@@ -51,13 +51,13 @@ func MakeSteps() []Step {
 	x, y := robotgo.GetMousePos()
     fmt.Println("click", x, y)
     steps = append(steps, Step{
-      	StepName: "any", 
+      	StepName: "Move Mouse", 
       	StepAction: "MoveMouse", 
       	StepParams: []interface{}{ x, y }, 
       	PreSleep: 1000, 
       	PostSleep: 1000})
 	steps = append(steps, Step{
-    	StepName: "any", 
+    	StepName: "Left Click", 
     	StepAction: "LeftClick", 
     	StepParams: []interface{}{ false }, 
     	PreSleep: 1000, 
@@ -68,13 +68,13 @@ func MakeSteps() []Step {
 	x, y := robotgo.GetMousePos()
     fmt.Println("right click", x, y)
   	steps = append(steps, Step{
-    	StepName: "any", 
+    	StepName: "Move Mouse", 
     	StepAction: "MoveMouse", 
     	StepParams: []interface{}{ x, y }, 
     	PreSleep: 1000, 
     	PostSleep: 1000})
 	steps = append(steps, Step{
-    	StepName: "any", 
+    	StepName: "Right Click", 
     	StepAction: "RightClick", 
     	StepParams: []interface{}{ false }, 
     	PreSleep: 1000, 
@@ -85,13 +85,13 @@ func MakeSteps() []Step {
     x, y := robotgo.GetMousePos()
       fmt.Println("scroll", x, y)
     steps = append(steps, Step{
-      StepName: "any", 
+      StepName: "Move Mouse", 
       StepAction: "MoveMouse", 
       StepParams: []interface{}{ x, y }, 
       PreSleep: 1000, 
       PostSleep: 1000})
     steps = append(steps, Step{
-      StepName: "any", 
+      StepName: "Scroll Mouse", 
       StepAction: "ScrollMouse", 
       StepParams: []interface{}{ 100 }, 
       PreSleep: 1000, 
@@ -100,7 +100,7 @@ func MakeSteps() []Step {
 
 	hook.Register(hook.KeyDown, []string{"t"}, func(e hook.Event) {
 		steps = append(steps, Step{
-		  StepName: "any", 
+		  StepName: "Capture Time", 
 		  StepAction: "CaptureTime", 
 		  StepParams: []interface{}{ }, 
 		  PreSleep: 100, 
@@ -116,8 +116,6 @@ func MakeSteps() []Step {
 
   s := hook.Start()
   <-hook.Process(s)
-
-  fmt.Println(steps)
 
   return steps;
 }

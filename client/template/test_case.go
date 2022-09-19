@@ -17,7 +17,7 @@ type TestCase struct {
 	Widget *fyne.Container `json:"-"`
 	A fyne.App `json:"-"`
 	W fyne.Window `json:"-"`
-	Category *TestCategory
+	Category *TestCategory `json:"-"`
 }
 
 // InitContext init test case
@@ -29,8 +29,8 @@ func (c * TestCase) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 		canvas.NewText(" \t\t\t\t" + c.TestCaseName, color.RGBA{0x64, 0x7E, 0x68, 1}),
 		layout.NewSpacer(),
 		widget.NewButton("Select", func(){
-			fmt.Println(c.TestCaseName + " selected")
 			SelectedTestCase = c
+			fmt.Printf("selected point to %p\n", SelectedTestCase)
 			UpdateUI(c.A, c.W, c.Category)
 		}),
 	)

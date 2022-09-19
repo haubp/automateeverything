@@ -12,7 +12,7 @@ import (
 // TestGroup test group
 type TestGroup struct {
 	TestGroupName string `json:"test_group_name"`
-	TestGroupTestCases []TestCase `json:"test_group_tests"`
+	TestGroupTestCases []*TestCase `json:"test_group_tests"`
 	Category *TestCategory `json:"-"`
 	Widget *fyne.Container `json:"-"`
 	W fyne.Window `json:"-"`
@@ -52,10 +52,10 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 										container.New(	layout.NewVBoxLayout(),
 														layout.NewSpacer(),
 														widget.NewButton("Add", func(){
-															newTestCase := TestCase{TestCaseName: testCaseNameEntry.Text, TestCaseSteps: make([]Step, 0) }
+															newTestCase := TestCase{TestCaseName: testCaseNameEntry.Text, TestCaseSteps:[]Step{} }
 															newTestCase.InitContext(c.A, c.W, c.Category)
 															newTestCase.Widget.Show()
-															c.TestGroupTestCases = append(c.TestGroupTestCases, newTestCase)
+															c.TestGroupTestCases = append(c.TestGroupTestCases, &newTestCase)
 
 															UpdateUI(c.A, c.W, c.Category)
 
@@ -72,7 +72,7 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 	c.Widget.Hide()
 }
 
-// HideAll hide all child test cases
+// HideAllChild hide all child test cases
 func (c * TestGroup) HideAllChild() {
 	c.Widget.Hide()
 	for i := range c.TestGroupTestCases {
