@@ -87,6 +87,37 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 			newW.Close()
 		}),
 	)
+	keyboardTyping := container.New(
+		layout.NewHBoxLayout(), 
+		widget.NewLabel("  Keyboard Action"),
+		layout.NewSpacer(),
+		widget.NewButton("+", func(){
+			checkLogConfigWindow := a.NewWindow("keyboard Typing Configuration")
+			stringEntry := widget.NewEntry()
+			content := container.New(
+				layout.NewGridLayoutWithRows(4),
+				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("text"), stringEntry),
+				layout.NewSpacer(),
+				container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Finish", func(){
+					newStep := Step{
+						StepName: "Keyboard Typing",
+						StepAction: "KeyboardTyping",
+						StepParams: []interface{}{stringEntry.Text},
+						PreSleep: 1000,
+						PostSleep: 1000,
+					}
+					newStep.InitContext(a, w)
+
+					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
+
+					checkLogConfigWindow.Close()
+				})),
+			)
+			checkLogConfigWindow.SetContent(content)
+			checkLogConfigWindow.Resize(fyne.NewSize(400, 50))
+			checkLogConfigWindow.CenterOnScreen()
+			checkLogConfigWindow.Show()
+		}))
 	checkLog := container.New(
 		layout.NewHBoxLayout(), 
 		widget.NewLabel("  Check Log"),
@@ -171,10 +202,11 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 	addNewStepButton := widget.NewButton("Add New Step", func() {
 		newActionWindow := a.NewWindow("Recording...")
 		content := container.New(layout.NewMaxLayout(), widget.NewCard("", "Action:", container.New(
-			layout.NewGridLayoutWithRows(5),
+			layout.NewGridLayoutWithRows(6),
 			manualAction,
 			checkLog,
 			scanScreen,
+			keyboardTyping,
 			layout.NewSpacer(),
 			container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Add", func(){
 				newActionWindow.Close()

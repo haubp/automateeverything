@@ -1,12 +1,11 @@
 package utils
 
 import (
-	_ "image/png"
-
 	"github.com/deluan/lookup"
 	"github.com/go-vgo/robotgo"
 )
 
+// IsOnScreen scan screen
 func IsOnScreen(params []interface{}) bool {
 	_isOnScreen := false
 

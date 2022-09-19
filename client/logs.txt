@@ -67,3 +67,21 @@
 2022/09/19 17:06:17 		Run test for test test_log
 2022/09/19 17:06:17 			Run step Check Log
 2022/09/19 17:06:18 				 Success
+2022/09/19 17:19:51 Successfully Opened  template.json
+2022/09/19 17:20:38 Successfully Opened  template.json
+2022/09/19 17:20:51 Start Hook
+2022/09/19 17:20:51 Listening
+2022/09/19 17:20:54 click 1906 6
+2022/09/19 17:20:56 exit
+2022/09/19 17:21:26 Fyne error:  Getting favorite locations
+2022/09/19 17:21:26   Cause: uri is not listable
+2022/09/19 17:21:26   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/19 17:21:39 Run test for category test
+2022/09/19 17:21:39 	Run test for group test
+2022/09/19 17:21:39 		Run test for test keyboard_test
+2022/09/19 17:21:39 			Run step Move Mouse
+2022/09/19 17:21:40 				 Success
+2022/09/19 17:21:41 			Run step Left Click
+2022/09/19 17:21:42 				 Success
+2022/09/19 17:21:43 			Run step Keyboard Typing
+2022/09/19 17:21:44 				 Success

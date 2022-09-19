@@ -1,5 +1,6 @@
 package utils
 
+// ActionsMap action mapper
 func ActionsMap() map[string]interface{} {
 	actionsMap := map[string]interface{} {
 		"IsOnScreen": IsOnScreen,
@@ -8,6 +9,7 @@ func ActionsMap() map[string]interface{} {
 		"RightClick": RightClick,
 		"ScrollMouse": ScrollMouse,
 		"CheckLog": CheckLog,
+		"KeyboardTyping": KeyboardTyping,
 	}
 
 	return actionsMap
