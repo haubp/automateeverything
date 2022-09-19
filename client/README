@@ -1,6 +1,8 @@
 TODO:
-    1. Check decrypt log
+    1. Check decrypt log + log pattern contains "
     2. Enter text from keyboard action, enhance UX
+    3. Remove UX
+    4. Enhance Add step UX
 
 Useful Command:
 1. Creat fyne package

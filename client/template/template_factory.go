@@ -265,7 +265,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 	return testPageContainer
 }
 
-// CreateRunTestPage Creat Run Test Page widget
+// RunTestPage Creat Run Test Page widget
 func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	var t TestCategory
 	runTestButton := widget.NewButton("Run", func() {
@@ -366,7 +366,7 @@ func ExecuteTestFromTemplate(t *TestCategory) {
 		log.Println("	Run test for group", group.TestGroupName)
 		for _, test := range group.TestGroupTestCases {
 			log.Println("		Run test for test", test.TestCaseName)
-			capturedTime := time.Now()
+			var capturedTime time.Time
 			for _, step := range test.TestCaseSteps {
 				log.Println("			Run step", step.StepName)
 				if step.StepAction == "CaptureTime" {
@@ -375,7 +375,6 @@ func ExecuteTestFromTemplate(t *TestCategory) {
 					if step.StepAction == "CheckLog" {
 						step.StepParams = append(step.StepParams, capturedTime)
 					}
-
 					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
 					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
 						log.Println("				", "Success")

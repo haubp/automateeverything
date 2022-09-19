@@ -4,3 +4,66 @@
 2022/09/19 15:14:54 click 1871 25
 2022/09/19 15:14:57 exit
 2022/09/19 15:15:06 {test [{test [0xc0004c7ec0] 0xc0003a2180 0xc0002f9800 0xc0003b4000 0xc000338690 true}] true 0xc000428140 0xc0003b4000 0xc000338690}
+2022/09/19 16:25:21 Successfully Opened  template.json
+2022/09/19 16:36:50 Successfully Opened  template.json
+2022/09/19 16:36:53 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/09/19 16:36:53   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/09/19 16:36:53 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/09/19 16:36:53   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/09/19 16:37:02 Start Hook
+2022/09/19 16:37:02 Listening
+2022/09/19 16:37:04 exit
+2022/09/19 16:58:01 Successfully Opened  template.json
+2022/09/19 16:58:05 Fyne error:  Getting favorite locations
+2022/09/19 16:58:05   Cause: uri is not listable
+2022/09/19 16:58:05   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/19 16:58:19 Run test for category test
+2022/09/19 16:58:19 	Run test for group test
+2022/09/19 16:58:19 		Run test for test test_log
+2022/09/19 16:58:19 			Run step Check Log
+2022/09/19 16:58:20 				 Failed
+2022/09/19 16:59:36 Successfully Opened  template.json
+2022/09/19 16:59:39 Fyne error:  Getting favorite locations
+2022/09/19 16:59:39   Cause: uri is not listable
+2022/09/19 16:59:39   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/19 16:59:50 Run test for category test
+2022/09/19 16:59:50 	Run test for group test
+2022/09/19 16:59:50 		Run test for test test_log
+2022/09/19 16:59:50 			Run step Check Log
+2022/09/19 16:59:51 [info] 09-19-22 (13:24:31) GMT+03 (632960) -------------------<Core session start>-----------------------
+2022/09/19 16:59:51 [info] 09-19-22 (13:24:31) GMT+03 (632960) [iad-cross_domain] ready to serve
+2022/09/19 16:59:51 [info] 09-19-22 (13:24:32) GMT+03 (632960) [cld-register] ready to start
+2022/09/19 16:59:51 [INFO] 09-19-22 (13:24:32) GMT+03 (632960) [VULNERABILITYSCAN]: vulnerability: {"action_result": 1, "agent_token": "08534B04A987E700561B98697790C6EE20102203", "agent_type": 0, "agent_version": "7.6.2208.22", "device_id": "b367a581f0c217aa27aafed962681aa6", "hostname": "EPUAKHAW0C01", "sov": [{"id": 1139, "is_enabled": 1, "is_running": 1, "name": "System Center Configuration Manager Client", "patches": [], "vendor": "Microsoft Corporation", "version": "5.00.9058.1047"}, {"id": 3298, "is_enabled": -1, "is_running": 1, "name": "Microsoft Intune Management Extension", "patches": [], "vendor": "Microsoft Corporation", "version": "1.58.104.0"}, {"id": 1103, "is_enabled": 1, "is_running": 0, "name": "Windows Update Agent", "patches": [], "vendor": "Microsoft Corporation", "version": "10.0.19041.1503"}]}
+2022/09/19 16:59:51 [INFO] 09-19-22 (13:15:35) GMT+03 (632960) [VULNERABILITYSCAN]: sending vulnerability report
+2022/09/19 16:59:51 				 Failed
+2022/09/19 17:00:44 Fyne error:  Getting favorite locations
+2022/09/19 17:00:44   Cause: uri is not listable
+2022/09/19 17:00:44   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/19 17:00:56 Run test for category test
+2022/09/19 17:00:56 	Run test for group test
+2022/09/19 17:00:56 		Run test for test test_log
+2022/09/19 17:00:56 			Run step Check Log
+2022/09/19 17:00:57 [info] 09-19-22 (13:24:31) GMT+03 (632960) -------------------<Core session start>-----------------------
+2022/09/19 17:00:57 [info] 09-19-22 (13:24:31) GMT+03 (632960) [iad-cross_domain] ready to serve
+2022/09/19 17:00:57 [info] 09-19-22 (13:24:32) GMT+03 (632960) [cld-register] ready to start
+2022/09/19 17:00:57 [INFO] 09-19-22 (13:24:32) GMT+03 (632960) [VULNERABILITYSCAN]: vulnerability: {"action_result": 1, "agent_token": "08534B04A987E700561B98697790C6EE20102203", "agent_type": 0, "agent_version": "7.6.2208.22", "device_id": "b367a581f0c217aa27aafed962681aa6", "hostname": "EPUAKHAW0C01", "sov": [{"id": 1139, "is_enabled": 1, "is_running": 1, "name": "System Center Configuration Manager Client", "patches": [], "vendor": "Microsoft Corporation", "version": "5.00.9058.1047"}, {"id": 3298, "is_enabled": -1, "is_running": 1, "name": "Microsoft Intune Management Extension", "patches": [], "vendor": "Microsoft Corporation", "version": "1.58.104.0"}, {"id": 1103, "is_enabled": 1, "is_running": 0, "name": "Windows Update Agent", "patches": [], "vendor": "Microsoft Corporation", "version": "10.0.19041.1503"}]}
+2022/09/19 17:00:57 [INFO] 09-19-22 (13:15:35) GMT+03 (632960) [VULNERABILITYSCAN]: sending vulnerability report
+2022/09/19 17:00:57 				 Success
+2022/09/19 17:04:42 Successfully Opened  template.json
+2022/09/19 17:04:46 Fyne error:  Getting favorite locations
+2022/09/19 17:04:46   Cause: uri is not listable
+2022/09/19 17:04:46   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/19 17:04:57 Run test for category test
+2022/09/19 17:04:57 	Run test for group test
+2022/09/19 17:04:57 		Run test for test test_log
+2022/09/19 17:04:57 			Run step Check Log
+2022/09/19 17:04:58 				 Success
+2022/09/19 17:05:34 Successfully Opened  template.json
+2022/09/19 17:06:07 Fyne error:  Getting favorite locations
+2022/09/19 17:06:07   Cause: uri is not listable
+2022/09/19 17:06:07   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/19 17:06:17 Run test for category test
+2022/09/19 17:06:17 	Run test for group test
+2022/09/19 17:06:17 		Run test for test test_log
+2022/09/19 17:06:17 			Run step Check Log
+2022/09/19 17:06:18 				 Success

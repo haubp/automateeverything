@@ -8,8 +8,6 @@ import (
     "strings"
     "log"
     "os"
-	
-	_ "image/png"
 )
 
 // LoadImageFromFile 0: image path
@@ -28,12 +26,7 @@ func CheckLog(params []interface{}) bool {
 
 	logPath := params[0].(string)
 	logPattern := params[1].(string)
-	startAt := params[2].(string)
-
-	tStart, err := time.Parse(timeLogLayout, startAt)
-	if err != nil {
-		panic(err)
-	}
+	startTime := params[2].(time.Time)
 
 	file, err := os.Open(logPath)
     if err != nil {
@@ -45,6 +38,10 @@ func CheckLog(params []interface{}) bool {
 
     for scanner.Scan() {
 		line := scanner.Text()
+
+		if strings.Contains(line, "<?>") {
+			line = decryptLog(line)
+		}
 
 		r, _ := regexp.Compile(`^\[(.*)\] ([\d-]{8} \(.*\)) GMT\+\d{2} \(\d+\) (.*)$`)
 
@@ -60,8 +57,8 @@ func CheckLog(params []interface{}) bool {
 				panic(err)
 			}
 			
-			if tStart.Before(tCurrent) {
-				if strings.HasPrefix(logText, logPattern) {
+			if startTime.Before(tCurrent) {
+				if strings.Contains(logText, logPattern) {
 					found = true
 				}
 			} 

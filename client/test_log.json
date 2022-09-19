@@ -1,0 +1,25 @@
+{
+ "test_category_name": "test",
+ "test_category_groups": [
+  {
+   "test_group_name": "test",
+   "test_group_tests": [
+    {
+     "name": "test_log",
+     "test_steps": [
+      {
+       "step_name": "Check Log",
+       "step_action": "CheckLog",
+       "step_params": [
+        "core.log",
+        "\"action_result\": 1"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
