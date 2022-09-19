@@ -6,3 +6,8 @@ Useful Command:
 1. Creat fyne package
     go install fyne.io/fyne/v2/cmd/fyne@latest
     fyne package -os windows -icon icon.png
+
+Packaging:
+Need to copy 2 items when delivering
+    1. automateeverything.com.exe
+    2. template.json
