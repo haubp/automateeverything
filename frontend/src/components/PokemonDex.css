@@ -1,0 +1,42 @@
+.header {
+    text-align: center;
+    padding-bottom: 30px;
+    color: gray;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.gameResult {
+    margin: 20px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.dex {
+    border: 2px solid black;
+    margin: 5px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.rollTable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableGame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid gray;
+    margin: 10px;
+}
+
+.rowTable {
+    display: flex;
+    justify-content: center;
+}
