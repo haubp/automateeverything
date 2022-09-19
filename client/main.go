@@ -10,6 +10,9 @@ import (
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/storage"
 	"io/ioutil"
+
+	"log"
+	"os"
 )
 
 func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainMenu {
@@ -57,19 +60,17 @@ func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainM
 }
 
 func main() {
-	// runner.ExecuteTest("myTemplate.json")
-
-	// steps := template.MakeSteps()
-	// test := template.Test{TestName:"any", TestSteps: steps}
-	// group := template.TestGroup{TestGroupName:"any", TestGroupTests: []template.Test{test}}
-	// category := template.TestCategory{TestCategoryName:"any", TestCategoryGroups: []template.TestGroup{group}}
-	// template.CreateJsonFileFromTemplate("myTemplate2.json", category)
-
+	logFile, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.SetOutput(logFile)
+	
 	myApp := app.New()
 	r, _ := fyne.LoadResourceFromPath("icon.png")
 	myApp.SetIcon(r)
 	myApp.Settings().SetTheme(theme.DarkTheme())
-	w := myApp.NewWindow("Automation Testing")
+	w := myApp.NewWindow("Automate Everything")
 	w.Resize(fyne.NewSize(1100, 800))
 
 	// Test data

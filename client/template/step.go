@@ -1,7 +1,7 @@
 package template
 
 import (
-	"fmt"
+	"log"
 	hook "github.com/robotn/gohook"
 	"github.com/go-vgo/robotgo"
 	"fyne.io/fyne/v2"
@@ -28,19 +28,19 @@ type Step struct {
 func MakeSteps() []Step {
   steps := []Step{}
 
-  fmt.Println("Start Hook")
+  log.Println("Start Hook")
 
   hook.Register(hook.KeyDown, []string{"d"}, func(e hook.Event) {
 	x, y := robotgo.GetMousePos()
-    fmt.Println("double click", x, y)
+    log.Println("double click", x, y)
   	steps = append(steps, Step{
-    	StepName: "any", 
+    	StepName: "Move Mouse", 
     	StepAction: "MoveMouse", 
     	StepParams: []interface{}{ x, y }, 
     	PreSleep: 1000, 
     	PostSleep: 1000})
 	steps = append(steps, Step{
-    	StepName: "any", 
+    	StepName: "Double Click", 
     	StepAction: "LeftClick", 
     	StepParams: []interface{}{ true }, 
     	PreSleep: 1000, 
@@ -49,7 +49,7 @@ func MakeSteps() []Step {
 
   hook.Register(hook.KeyDown, []string{"c"}, func(e hook.Event) {
 	x, y := robotgo.GetMousePos()
-    fmt.Println("click", x, y)
+    log.Println("click", x, y)
     steps = append(steps, Step{
       	StepName: "Move Mouse", 
       	StepAction: "MoveMouse", 
@@ -66,7 +66,7 @@ func MakeSteps() []Step {
 
   hook.Register(hook.KeyDown, []string{"r"}, func(e hook.Event) {
 	x, y := robotgo.GetMousePos()
-    fmt.Println("right click", x, y)
+    log.Println("right click", x, y)
   	steps = append(steps, Step{
     	StepName: "Move Mouse", 
     	StepAction: "MoveMouse", 
@@ -83,7 +83,7 @@ func MakeSteps() []Step {
 
   hook.Register(hook.KeyDown, []string{"s"}, func(e hook.Event) {
     x, y := robotgo.GetMousePos()
-      fmt.Println("scroll", x, y)
+	log.Println("scroll", x, y)
     steps = append(steps, Step{
       StepName: "Move Mouse", 
       StepAction: "MoveMouse", 
@@ -108,11 +108,11 @@ func MakeSteps() []Step {
 	})
 
   hook.Register(hook.KeyDown, []string{"q"}, func(e hook.Event) {
-    fmt.Println("exit")
+    log.Println("exit")
 	hook.End()
   })
 
-  fmt.Println("Listening")
+  log.Println("Listening")
 
   s := hook.Start()
   <-hook.Process(s)

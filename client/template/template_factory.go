@@ -1,7 +1,7 @@
 package template
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"time"
 	"io/ioutil"
@@ -25,10 +25,10 @@ var SelectedTestCase *TestCase
 func CreateTestFromJSONFile(templatePath string) (TestCategory, error) {
 	templateFile, err := os.Open(templatePath)
 	if err != nil {
-    	fmt.Println(err)
+    	log.Println(err)
 		return TestCategory{}, err
 	}
-	fmt.Println("Successfully Opened ", templatePath)
+	log.Println("Successfully Opened ", templatePath)
 	defer templateFile.Close()
 
     templateByteValue, _ := ioutil.ReadAll(templateFile)
@@ -51,12 +51,11 @@ func CreateTestFromBytes(b []byte) (TestCategory, error) {
 func CreateJSONFileFromTemplate(templatePath string, test TestCategory) {
 	file, e := json.MarshalIndent(test, "", " ")
 	if e != nil {
-		fmt.Println(e)
+		log.Println(e)
 	}
-	fmt.Println(test)
 	e = ioutil.WriteFile(templatePath, file, 0644)
 	if e != nil {
-		fmt.Println(e)
+		log.Println(e)
 	}
 }
 
@@ -83,11 +82,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 				sl[i].InitContext(a, w)
 			}
 
-			fmt.Printf("selected now point to %p\n", SelectedTestCase)
-
 			SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, sl...)
-
-			fmt.Printf("t test case %p", &t.TestCategoryGroups[0].TestGroupTestCases[0])
 
 			newW.Close()
 		}),
@@ -330,17 +325,17 @@ func ExecuteTestFromTemplatePath(templatePath string) {
 
 	testTemplate, err := CreateTestFromJSONFile(templatePath)
 	if err != nil {
-		fmt.Println("Error ", err.Error())
+		log.Println("Error ", err.Error())
 	}
 
-	fmt.Println("Run test for category", testTemplate.TestCategoryName)
+	log.Println("Run test for category", testTemplate.TestCategoryName)
 	for _, group := range testTemplate.TestCategoryGroups {
-		fmt.Println("	Run test for group", group.TestGroupName)
+		log.Println("	Run test for group", group.TestGroupName)
 		for _, test := range group.TestGroupTestCases {
-			fmt.Println("		Run test for test", test.TestCaseName)
+			log.Println("		Run test for test", test.TestCaseName)
 			capturedTime := time.Now()
 			for _, step := range test.TestCaseSteps {
-				fmt.Println("			Run step", step.StepName)
+				log.Println("			Run step", step.StepName)
 				if step.StepAction == "CaptureTime" {
 					capturedTime = time.Now()
 				} else {
@@ -350,9 +345,9 @@ func ExecuteTestFromTemplatePath(templatePath string) {
 
 					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
 					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
-						fmt.Println("				", "Success")
+						log.Println("				", "Success")
 					} else {
-						fmt.Println("				", "Failed")
+						log.Println("				", "Failed")
 						break
 					}
 					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
@@ -366,14 +361,14 @@ func ExecuteTestFromTemplatePath(templatePath string) {
 func ExecuteTestFromTemplate(t *TestCategory) {
 	actionsMap := utils.ActionsMap()
 
-	fmt.Println("Run test for category", t.TestCategoryName)
+	log.Println("Run test for category", t.TestCategoryName)
 	for _, group := range t.TestCategoryGroups {
-		fmt.Println("	Run test for group", group.TestGroupName)
+		log.Println("	Run test for group", group.TestGroupName)
 		for _, test := range group.TestGroupTestCases {
-			fmt.Println("		Run test for test", test.TestCaseName)
+			log.Println("		Run test for test", test.TestCaseName)
 			capturedTime := time.Now()
 			for _, step := range test.TestCaseSteps {
-				fmt.Println("			Run step", step.StepName)
+				log.Println("			Run step", step.StepName)
 				if step.StepAction == "CaptureTime" {
 					capturedTime = time.Now()
 				} else {
@@ -383,9 +378,9 @@ func ExecuteTestFromTemplate(t *TestCategory) {
 
 					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
 					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
-						fmt.Println("				", "Success")
+						log.Println("				", "Success")
 					} else {
-						fmt.Println("				", "Failed")
+						log.Println("				", "Failed")
 						break
 					}
 					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)

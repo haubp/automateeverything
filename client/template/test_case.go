@@ -7,7 +7,6 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2"
 	"image/color"
-	"fmt"
 )
 
 // TestCase test case
@@ -30,7 +29,6 @@ func (c * TestCase) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 		layout.NewSpacer(),
 		widget.NewButton("Select", func(){
 			SelectedTestCase = c
-			fmt.Printf("selected point to %p\n", SelectedTestCase)
 			UpdateUI(c.A, c.W, c.Category)
 		}),
 	)
