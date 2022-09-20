@@ -22,7 +22,7 @@ type TestGroup struct {
 
 // InitContext Init context for test group
 func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
-	c.DisplayTestCases = false
+	c.DisplayTestCases = true
 	c.W = w
 	c.A = a
 	c.Category = t
@@ -67,9 +67,6 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 			newW.CenterOnScreen()
 			newW.Resize(fyne.NewSize(300, 100))
 			newW.Show()
-		}),
-		widget.NewButton("X", func() {
-			
 		}),
 	)
 	c.Widget.Hide()

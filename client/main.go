@@ -24,6 +24,9 @@ func createMenu(a fyne.App, w fyne.Window, t *template.TestCategory) *fyne.MainM
         // _ is ignore error
         fileDialog := dialog.NewFileOpen(
             func(r fyne.URIReadCloser, _ error) {
+				if r == nil {
+					return
+				}
 				template.SelectedTestCase = nil
                 // read files
                 data, _ := ioutil.ReadAll(r)

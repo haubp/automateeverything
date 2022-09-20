@@ -309,6 +309,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 // RunTestPage Creat Run Test Page widget
 func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	var t TestCategory
+	result := canvas.NewText("", color.RGBA{0xD8, 0xD8, 0xD8, 1})
 	runTestButton := widget.NewButton("Run", func() {
 		ExecuteTestFromTemplate(&t)
 	})
@@ -317,6 +318,9 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 		fileDialog := dialog.NewFileOpen(
             func(r fyne.URIReadCloser, _ error) {
                 // read files
+				if r == nil {
+					return
+				}
                 data, _ := ioutil.ReadAll(r)
 				t, _ = CreateTestFromBytes(data)
 				templateFileSelectedLabelIndicator.SetText("Template imported")
@@ -337,6 +341,7 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 													container.New(	layout.NewHBoxLayout(), 
 																	layout.NewSpacer(),
 																	runTestButton,
+																	result,
 																	layout.NewSpacer()),
 													layout.NewSpacer()),
 								)

@@ -12,7 +12,7 @@ import (
 // TestCategory test category
 type TestCategory struct {
 	TestCategoryName string `json:"test_category_name"`
-	TestCategoryGroups []TestGroup `json:"test_category_groups"`
+	TestCategoryGroups []*TestGroup `json:"test_category_groups"`
 	DisplayTestGroups bool `json:"-"`
 	Widget *fyne.Container `json:"-"`
 	W fyne.Window `json:"-"`
@@ -55,7 +55,7 @@ func (c * TestCategory) InitContext(a fyne.App, w fyne.Window) {
 															newGroup := TestGroup{TestGroupName: testGroupNameEntry.Text, TestGroupTestCases: []*TestCase{} }
 															newGroup.InitContext(c.A, c.W, c)
 															newGroup.Widget.Show()
-															c.TestCategoryGroups = append(c.TestCategoryGroups, newGroup)
+															c.TestCategoryGroups = append(c.TestCategoryGroups, &newGroup)
 
 															UpdateUI(c.A, c.W, c)
 
@@ -67,9 +67,6 @@ func (c * TestCategory) InitContext(a fyne.App, w fyne.Window) {
 			newW.CenterOnScreen()
 			newW.Resize(fyne.NewSize(300, 100))
 			newW.Show()
-		}),
-		widget.NewButton("X", func(){
-			
 		}),
 	)
 }
