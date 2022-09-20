@@ -2,4 +2,4 @@ go.mod
 go.sum
 automateeverything.com.exe
 logs.txt
-./utils/key
+utils/key
