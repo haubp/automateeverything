@@ -312,33 +312,28 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	runTestButton := widget.NewButton("Run", func() {
 		ExecuteTestFromTemplate(&t)
 	})
-	templateFileSelectedLabelIndicator := widget.NewLabel("Template not selected")
+	templateFileSelectedLabelIndicator := widget.NewLabel("No test template found")
 	importTestButton := widget.NewButton("Import", func() {
 		fileDialog := dialog.NewFileOpen(
             func(r fyne.URIReadCloser, _ error) {
                 // read files
                 data, _ := ioutil.ReadAll(r)
 				t, _ = CreateTestFromBytes(data)
-				templateFileSelectedLabelIndicator.SetText("Template selected")
+				templateFileSelectedLabelIndicator.SetText("Template imported")
             }, w)
         fileDialog.SetFilter(storage.NewExtensionFileFilter([]string{".json"}))
         fileDialog.Show()
 	})
-	runTestPage := container.New(	layout.NewGridLayoutWithRows(3), 
+	runTestPage := container.New(	layout.NewGridLayoutWithRows(2), 
 									container.New(	layout.NewVBoxLayout(), 
 													layout.NewSpacer(), 
 													container.New(	layout.NewHBoxLayout(), 
+																	layout.NewSpacer(),
+																	templateFileSelectedLabelIndicator,
 																	importTestButton, 
 																	layout.NewSpacer()),
 													layout.NewSpacer()),
 									container.New(	layout.NewVBoxLayout(), 
-													layout.NewSpacer(), 
-													container.New(	layout.NewHBoxLayout(), 
-																	templateFileSelectedLabelIndicator, 
-																	layout.NewSpacer()),
-													layout.NewSpacer()),
-									container.New(	layout.NewVBoxLayout(), 
-													layout.NewSpacer(), 
 													container.New(	layout.NewHBoxLayout(), 
 																	layout.NewSpacer(),
 																	runTestButton,
