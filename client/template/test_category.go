@@ -68,6 +68,9 @@ func (c * TestCategory) InitContext(a fyne.App, w fyne.Window) {
 			newW.Resize(fyne.NewSize(300, 100))
 			newW.Show()
 		}),
+		widget.NewButton("X", func(){
+			
+		}),
 	)
 }
 

@@ -31,6 +31,9 @@ func (c * TestCase) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 			SelectedTestCase = c
 			UpdateUI(c.A, c.W, c.Category)
 		}),
+		widget.NewButton("X", func() {
+			
+		}),
 	)
 	c.Widget.Hide()
 }
