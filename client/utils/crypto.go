@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"log"
+	"io/ioutil"
 )
 
 func decryptLog(text string) string {
@@ -43,7 +45,15 @@ func decryptLogSnippet(cipherInBase64 string) string {
 	var commonIV = []byte("opswatmetaaccess")
 
 	// aes encryption string
-	keyText := sha256.Sum256([]byte("MetaAccess_General_@#113412"))
+	templateFile, err := os.Open("key")
+	if err != nil {
+    	log.Println(err)
+		return ""
+	}
+	defer templateFile.Close()
+
+    b, _ := ioutil.ReadAll(templateFile)
+	keyText := sha256.Sum256(b)
 
 	// Create the aes encryption algorithm
 	c, err := aes.NewCipher(keyText[:])
