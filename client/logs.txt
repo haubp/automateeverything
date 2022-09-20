@@ -91,3 +91,5 @@
 2022/09/19 17:26:12 Listening
 2022/09/19 17:26:14 click 1560 179
 2022/09/19 17:26:15 exit
+2022/09/20 09:13:58 Successfully Opened  template.json
+2022/09/20 10:34:38 Successfully Opened  template.json
