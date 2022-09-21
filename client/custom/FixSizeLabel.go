@@ -30,8 +30,7 @@ func (t *FixSizeLabel) WriteAndExpand(s string) {
 	if len(s) > 1000 {
 		s = s[50:]
 	}
-	rows := len(t.Text) / 50
-	t.SetFixSize(fyne.NewSize(t.Size().Width, float32(rows * 50)))
+	t.SetFixSize(fyne.NewSize(t.Size().Width, t.Size().Height + 20))
 	t.SetText(s)
 }
 

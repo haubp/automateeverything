@@ -13,6 +13,7 @@ import (
 type TestCase struct {
 	TestCaseName string `json:"name"`
 	TestCaseSteps []Step `json:"test_steps"`
+	Result string `json:"result"`
 	Widget *fyne.Container `json:"-"`
 	A fyne.App `json:"-"`
 	W fyne.Window `json:"-"`
@@ -24,6 +25,7 @@ func (c * TestCase) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 	c.W = w
 	c.A = a
 	c.Category = t
+	c.Result = "Not Run"
 	c.Widget = container.New(layout.NewHBoxLayout(),
 		canvas.NewText(" \t\t\t\t" + c.TestCaseName, color.RGBA{0x64, 0x7E, 0x68, 1}),
 		layout.NewSpacer(),

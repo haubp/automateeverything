@@ -319,13 +319,15 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	resultTelevision.SetFixSize(fyne.NewSize(500, 100))
 	testRunProgress := widget.NewProgressBar()
 	testRunProgress.SetValue(0.0)
+	reportNameEntry := widget.NewEntry()
+	reportNameEntry.SetText("report.json")
 	templateFileSelectedLabelIndicator := widget.NewLabel("No test template found")
 	scrollResultContainer := container.NewVScroll(
 		resultTelevision,
 	)
 	runTestButton := widget.NewButton("Run", func() {
 		if len(t.TestCategoryGroups) != 0 {
-			ExecuteTestFromTemplate(&t, resultTelevision, testRunProgress, scrollResultContainer)
+			ExecuteTestFromTemplate(&t, resultTelevision, testRunProgress, scrollResultContainer, reportNameEntry)
 		} else {
 			resultTelevision.WriteAndExpand("No Test Template is imported")
 		}
@@ -357,6 +359,7 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 													container.New(	layout.NewVBoxLayout(),
 																	templateFileSelectedLabelIndicator,
 																	testRunProgress,
+																	reportNameEntry,
 																	layout.NewSpacer(),
 																),
 													layout.NewSpacer()),
@@ -378,7 +381,7 @@ func UpdateUI(a fyne.App, w fyne.Window, t *TestCategory) {
 }
 
 // ExecuteTestFromTemplate execute test from file bytes
-func ExecuteTestFromTemplate(t *TestCategory, resultTelevision *custom.FixSizeLabel, progressBar *widget.ProgressBar, resultContainer *container.Scroll) {
+func ExecuteTestFromTemplate(t *TestCategory, resultTelevision *custom.FixSizeLabel, progressBar *widget.ProgressBar, resultContainer *container.Scroll, reportNameEntry *widget.Entry) {
 	actionsMap := utils.ActionsMap()
 	resultTelevision.WriteAndExpand("Run test for category " + t.TestCategoryName)
 	totalOfTestCases := 0.0
@@ -390,6 +393,7 @@ func ExecuteTestFromTemplate(t *TestCategory, resultTelevision *custom.FixSizeLa
 		resultTelevision.WriteAndExpand("	Run test for group " + group.TestGroupName)
 		for _, test := range group.TestGroupTestCases {
 			resultTelevision.WriteAndExpand("		Run test for test " + test.TestCaseName)
+			test.Result = "Success"
 			var capturedTime time.Time
 			for _, step := range test.TestCaseSteps {
 				resultTelevision.WriteAndExpand("			Run step " + step.StepName)
@@ -405,6 +409,7 @@ func ExecuteTestFromTemplate(t *TestCategory, resultTelevision *custom.FixSizeLa
 						resultTelevision.WriteAndExpand("				" + "Success")
 					} else {
 						resultTelevision.WriteAndExpand("				" + "Failed")
+						test.Result = "Failed at step " + step.StepName
 						break
 					}
 					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
@@ -414,5 +419,12 @@ func ExecuteTestFromTemplate(t *TestCategory, resultTelevision *custom.FixSizeLa
 			progressBar.SetValue(progressBar.Value + percentOfEachTestCase)
 		}
 	}
+	resultTelevision.WriteAndExpand("Report")
+	if reportNameEntry.Text != "" {
+		CreateJSONFileFromTemplate(reportNameEntry.Text, *t)
+	} else {
+		CreateJSONFileFromTemplate("report.json", *t)
+	}
 	resultTelevision.WriteAndExpand("Finish")
+	resultContainer.ScrollToBottom()
 }
