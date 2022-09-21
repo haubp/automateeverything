@@ -69,7 +69,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 		widget.NewLabel("  Manual Action"),
 		layout.NewSpacer(),
 		widget.NewButton("+", func() {
-			newW := a.NewWindow("Recording...")
+			newW := a.NewWindow("Manual Action")
 			content := container.New(	layout.NewGridLayoutWithRows(3),
 										layout.NewSpacer(),
 										widget.NewLabel("Recording..."),
@@ -263,6 +263,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 			newW.CenterOnScreen()
 			newW.Resize(fyne.NewSize(300, 100))
 			newW.Show()
+			newW.Canvas().Focus(templatePathEntry)
 	})
 
 	line := canvas.NewLine(color.White)
@@ -272,7 +273,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 
 	selectedTestCaseIndicator := canvas.NewText("", color.RGBA{0xD8, 0xD8, 0xD8, 1})
 	if SelectedTestCase != nil {
-		selectedTestCaseIndicator.Text = "\t" + SelectedTestCase.TestCaseName + " selected: "
+		selectedTestCaseIndicator.Text = "\t" + SelectedTestCase.TestCaseName + " selected"
 	} else {
 		selectedTestCaseIndicator.Text = "\t" + "No Test Case Selected"
 	}
@@ -316,11 +317,22 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	var t TestCategory
 	resultTelevision := custom.NewFixSizeLabel()
 	resultTelevision.SetFixSize(fyne.NewSize(500, 100))
-	runTestButton := widget.NewButton("Run", func() {
-		// resultTelevision.WriteAndExpand("This is a very large text")
-		ExecuteTestFromTemplate(&t, resultTelevision)
-	})
+	testRunProgress := widget.NewProgressBar()
+	testRunProgress.SetValue(0.0)
 	templateFileSelectedLabelIndicator := widget.NewLabel("No test template found")
+	scrollResultContainer := container.NewVScroll(
+		resultTelevision,
+	)
+	runTestButton := widget.NewButton("Run", func() {
+		if len(t.TestCategoryGroups) != 0 {
+			ExecuteTestFromTemplate(&t, resultTelevision, testRunProgress, scrollResultContainer)
+		} else {
+			resultTelevision.WriteAndExpand("No Test Template is imported")
+		}
+	})
+	clearLogButton := widget.NewButton("Clear", func() {
+		resultTelevision.SetText("")
+	})
 	importTestButton := widget.NewButton("Import", func() {
 		fileDialog := dialog.NewFileOpen(
             func(r fyne.URIReadCloser, _ error) {
@@ -335,26 +347,20 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
         fileDialog.SetFilter(storage.NewExtensionFileFilter([]string{".json"}))
         fileDialog.Show()
 	})
-	testRunProgress := widget.NewProgressBar()
-	testRunProgress.SetValue(100)
-	testRunProgress.Resize(fyne.NewSize(100, 20))
 	runTestPage := container.New(	layout.NewGridLayoutWithRows(2), 
-									container.New(	layout.NewVBoxLayout(), 
-													layout.NewSpacer(), 
-													container.New(	layout.NewHBoxLayout(), 
-																	layout.NewSpacer(),
-																	templateFileSelectedLabelIndicator,
+									container.New(	layout.NewHBoxLayout(), 
+													container.New(	layout.NewVBoxLayout(), 
 																	importTestButton, 
 																	runTestButton,
-																	
+																	clearLogButton,
 																	layout.NewSpacer()),
-													container.New(	layout.NewHBoxLayout(), 
+													container.New(	layout.NewVBoxLayout(),
+																	templateFileSelectedLabelIndicator,
 																	testRunProgress,
+																	layout.NewSpacer(),
 																),
 													layout.NewSpacer()),
-									container.NewVScroll(
-										resultTelevision,
-									),
+													scrollResultContainer,
 								)
 	return runTestPage
 }
@@ -371,72 +377,42 @@ func UpdateUI(a fyne.App, w fyne.Window, t *TestCategory) {
 	w.SetContent(tabs)
 }
 
-// ExecuteTestFromTemplatePath execute test from file path
-func ExecuteTestFromTemplatePath(templatePath string) {
+// ExecuteTestFromTemplate execute test from file bytes
+func ExecuteTestFromTemplate(t *TestCategory, resultTelevision *custom.FixSizeLabel, progressBar *widget.ProgressBar, resultContainer *container.Scroll) {
 	actionsMap := utils.ActionsMap()
-
-	testTemplate, err := CreateTestFromJSONFile(templatePath)
-	if err != nil {
-		log.Println("Error ", err.Error())
+	resultTelevision.WriteAndExpand("Run test for category " + t.TestCategoryName)
+	totalOfTestCases := 0.0
+	for _, group := range t.TestCategoryGroups {
+		totalOfTestCases += float64(len(group.TestGroupTestCases))
 	}
-
-	log.Println("Run test for category", testTemplate.TestCategoryName)
-	for _, group := range testTemplate.TestCategoryGroups {
-		log.Println("	Run test for group", group.TestGroupName)
+	percentOfEachTestCase := 100 / totalOfTestCases
+	for _, group := range t.TestCategoryGroups {
+		resultTelevision.WriteAndExpand("	Run test for group " + group.TestGroupName)
 		for _, test := range group.TestGroupTestCases {
-			log.Println("		Run test for test", test.TestCaseName)
-			capturedTime := time.Now()
+			resultTelevision.WriteAndExpand("		Run test for test " + test.TestCaseName)
+			var capturedTime time.Time
 			for _, step := range test.TestCaseSteps {
-				log.Println("			Run step", step.StepName)
+				resultTelevision.WriteAndExpand("			Run step " + step.StepName)
 				if step.StepAction == "CaptureTime" {
 					capturedTime = time.Now()
+					resultTelevision.WriteAndExpand("			Capture time")
 				} else {
 					if step.StepAction == "CheckLog" {
 						step.StepParams = append(step.StepParams, capturedTime)
 					}
-
 					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
 					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
-						log.Println("				", "Success")
+						resultTelevision.WriteAndExpand("				" + "Success")
 					} else {
-						log.Println("				", "Failed")
+						resultTelevision.WriteAndExpand("				" + "Failed")
 						break
 					}
 					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
 				}
+				resultContainer.ScrollToBottom()
 			}
+			progressBar.SetValue(progressBar.Value + percentOfEachTestCase)
 		}
 	}
-}
-
-// ExecuteTestFromTemplate execute test from file bytes
-func ExecuteTestFromTemplate(t *TestCategory, resultWidget fyne.Widget) {
-	// actionsMap := utils.ActionsMap()
-	// resultText := "Run test for category " + t.TestCategoryName
-	// for _, group := range t.TestCategoryGroups {
-	// 	resultText += "\n" + "	Run test for group" + group.TestGroupName
-	// 	for _, test := range group.TestGroupTestCases {
-	// 		resultText += "\n" + "		Run test for test" + test.TestCaseName
-	// 		var capturedTime time.Time
-	// 		for _, step := range test.TestCaseSteps {
-	// 			resultText += "\n" + "			Run step" + step.StepName
-	// 			if step.StepAction == "CaptureTime" {
-	// 				capturedTime = time.Now()
-	// 				resultText += "\n			Capture time"
-	// 			} else {
-	// 				if step.StepAction == "CheckLog" {
-	// 					step.StepParams = append(step.StepParams, capturedTime)
-	// 				}
-	// 				time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
-	// 				if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
-	// 					resultText += "\n" + "				" + "Success"
-	// 				} else {
-	// 					resultText += "\n" + "				" + "Failed"
-	// 					break
-	// 				}
-	// 				time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
-	// 			}
-	// 		}
-	// 	}
-	// }
+	resultTelevision.WriteAndExpand("Finish")
 }
