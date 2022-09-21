@@ -67,6 +67,7 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 			newW.CenterOnScreen()
 			newW.Resize(fyne.NewSize(300, 100))
 			newW.Show()
+			newW.Canvas().Focus(testCaseNameEntry)
 		}),
 	)
 	c.Widget.Hide()

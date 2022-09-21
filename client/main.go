@@ -74,7 +74,7 @@ func main() {
 	myApp.SetIcon(r)
 	myApp.Settings().SetTheme(theme.DarkTheme())
 	w := myApp.NewWindow("Automate Everything")
-	w.Resize(fyne.NewSize(1100, 800))
+	w.Resize(fyne.NewSize(1000, 600))
 
 	// Test data
 	t, _ := template.CreateTestFromJSONFile("template.json")

@@ -264,28 +264,30 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 
 	line := canvas.NewLine(color.White)
 	line.StrokeWidth = 1
-	line.StrokeColor = color.White
+	line.StrokeColor = color.Gray{10}
 	line.Position1 = fyne.NewPos(0, 0)
-	line.Position2 = fyne.NewPos(0, 100)
 
-	selectedTestCaseIndicator := widget.NewLabel("")
+	selectedTestCaseIndicator := canvas.NewText("", color.RGBA{0xD8, 0xD8, 0xD8, 1})
 	if SelectedTestCase != nil {
-		selectedTestCaseIndicator.SetText(SelectedTestCase.TestCaseName + " selected: ")
+		selectedTestCaseIndicator.Text = "\t" + SelectedTestCase.TestCaseName + " selected: "
+	} else {
+		selectedTestCaseIndicator.Text = "\t" + "No Test Case Selected"
 	}
 	
 	testPageContainer := container.New(
 		layout.NewGridLayoutWithRows(2), 
 		container.New(	layout.NewGridLayoutWithColumns(2), 
 						c1,
-						container.New(	layout.NewGridLayoutWithRows(2), 
+						container.New(	layout.NewGridLayoutWithRows(2),
 										container.New(	layout.NewHBoxLayout(), 
 														line, 
-														selectedTestCaseIndicator,
-														line,
 														c2),
-										container.New(	layout.NewHBoxLayout(), 
+										container.New(	layout.NewHBoxLayout(),
+														container.New(	layout.NewVBoxLayout(),
+																		selectedTestCaseIndicator,
+																		layout.NewSpacer()),
 														layout.NewSpacer(),
-														container.New(	layout.NewVBoxLayout(), 
+														container.New(	layout.NewVBoxLayout(),
 																		addNewStepButton,
 																		layout.NewSpacer()),
 										),
@@ -309,9 +311,9 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 // RunTestPage Creat Run Test Page widget
 func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	var t TestCategory
-	result := canvas.NewText("", color.RGBA{0xD8, 0xD8, 0xD8, 1})
+	resultWidget := canvas.NewText("", color.RGBA{0xD8, 0xD8, 0xD8, 1})
 	runTestButton := widget.NewButton("Run", func() {
-		ExecuteTestFromTemplate(&t)
+		ExecuteTestFromTemplate(&t, resultWidget)
 	})
 	templateFileSelectedLabelIndicator := widget.NewLabel("No test template found")
 	importTestButton := widget.NewButton("Import", func() {
@@ -341,7 +343,9 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 													container.New(	layout.NewHBoxLayout(), 
 																	layout.NewSpacer(),
 																	runTestButton,
-																	result,
+																	container.NewVScroll(
+																		resultWidget,
+																	),
 																	layout.NewSpacer()),
 													layout.NewSpacer()),
 								)
@@ -399,28 +403,28 @@ func ExecuteTestFromTemplatePath(templatePath string) {
 }
 
 // ExecuteTestFromTemplate execute test from file bytes
-func ExecuteTestFromTemplate(t *TestCategory) {
+func ExecuteTestFromTemplate(t *TestCategory, resultWidget fyne.CanvasObject) {
 	actionsMap := utils.ActionsMap()
-
-	log.Println("Run test for category", t.TestCategoryName)
+	resultText := "Run test for category " + t.TestCategoryName
 	for _, group := range t.TestCategoryGroups {
-		log.Println("	Run test for group", group.TestGroupName)
+		resultText += "\n" + "	Run test for group" + group.TestGroupName
 		for _, test := range group.TestGroupTestCases {
-			log.Println("		Run test for test", test.TestCaseName)
+			resultText += "\n" + "		Run test for test" + test.TestCaseName
 			var capturedTime time.Time
 			for _, step := range test.TestCaseSteps {
-				log.Println("			Run step", step.StepName)
+				resultText += "\n" + "			Run step" + step.StepName
 				if step.StepAction == "CaptureTime" {
 					capturedTime = time.Now()
+					resultText += "\n			Capture time"
 				} else {
 					if step.StepAction == "CheckLog" {
 						step.StepParams = append(step.StepParams, capturedTime)
 					}
 					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
 					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
-						log.Println("				", "Success")
+						resultText += "\n" + "				" + "Success"
 					} else {
-						log.Println("				", "Failed")
+						resultText += "\n" + "				" + "Failed"
 						break
 					}
 					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
