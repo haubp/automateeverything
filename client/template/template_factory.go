@@ -1,21 +1,24 @@
 package template
 
 import (
+	"encoding/json"
+	"image/color"
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
-	"io/ioutil"
-	"image/color"
-	"encoding/json"
-	"fyne.io/fyne/v2/widget"
-	"fyne.io/fyne/v2/layout"
-	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/canvas"
-	"fyne.io/fyne/v2/dialog"
-	"fyne.io/fyne/v2/storage"
-	"fyne.io/fyne/v2"
 
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/storage"
+	"fyne.io/fyne/v2/widget"
+
+	"automateeverything.com/v2/custom"
 	"automateeverything.com/v2/utils"
+	// "automateeverything.com/v2/custom"
 )
 
 // SelectedTestCase Global Selected Test Case => TODO: Need to remove global variable
@@ -311,9 +314,11 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 // RunTestPage Creat Run Test Page widget
 func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 	var t TestCategory
-	resultWidget := canvas.NewText("", color.RGBA{0xD8, 0xD8, 0xD8, 1})
+	resultTelevision := custom.NewFixSizeLabel()
+	resultTelevision.SetFixSize(fyne.NewSize(500, 100))
 	runTestButton := widget.NewButton("Run", func() {
-		ExecuteTestFromTemplate(&t, resultWidget)
+		// resultTelevision.WriteAndExpand("This is a very large text")
+		ExecuteTestFromTemplate(&t, resultTelevision)
 	})
 	templateFileSelectedLabelIndicator := widget.NewLabel("No test template found")
 	importTestButton := widget.NewButton("Import", func() {
@@ -330,6 +335,9 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
         fileDialog.SetFilter(storage.NewExtensionFileFilter([]string{".json"}))
         fileDialog.Show()
 	})
+	testRunProgress := widget.NewProgressBar()
+	testRunProgress.SetValue(100)
+	testRunProgress.Resize(fyne.NewSize(100, 20))
 	runTestPage := container.New(	layout.NewGridLayoutWithRows(2), 
 									container.New(	layout.NewVBoxLayout(), 
 													layout.NewSpacer(), 
@@ -337,17 +345,16 @@ func RunTestPage(a fyne.App, w fyne.Window) *fyne.Container {
 																	layout.NewSpacer(),
 																	templateFileSelectedLabelIndicator,
 																	importTestButton, 
-																	layout.NewSpacer()),
-													layout.NewSpacer()),
-									container.New(	layout.NewVBoxLayout(), 
-													container.New(	layout.NewHBoxLayout(), 
-																	layout.NewSpacer(),
 																	runTestButton,
-																	container.NewVScroll(
-																		resultWidget,
-																	),
+																	
 																	layout.NewSpacer()),
+													container.New(	layout.NewHBoxLayout(), 
+																	testRunProgress,
+																),
 													layout.NewSpacer()),
+									container.NewVScroll(
+										resultTelevision,
+									),
 								)
 	return runTestPage
 }
@@ -403,33 +410,33 @@ func ExecuteTestFromTemplatePath(templatePath string) {
 }
 
 // ExecuteTestFromTemplate execute test from file bytes
-func ExecuteTestFromTemplate(t *TestCategory, resultWidget fyne.CanvasObject) {
-	actionsMap := utils.ActionsMap()
-	resultText := "Run test for category " + t.TestCategoryName
-	for _, group := range t.TestCategoryGroups {
-		resultText += "\n" + "	Run test for group" + group.TestGroupName
-		for _, test := range group.TestGroupTestCases {
-			resultText += "\n" + "		Run test for test" + test.TestCaseName
-			var capturedTime time.Time
-			for _, step := range test.TestCaseSteps {
-				resultText += "\n" + "			Run step" + step.StepName
-				if step.StepAction == "CaptureTime" {
-					capturedTime = time.Now()
-					resultText += "\n			Capture time"
-				} else {
-					if step.StepAction == "CheckLog" {
-						step.StepParams = append(step.StepParams, capturedTime)
-					}
-					time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
-					if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
-						resultText += "\n" + "				" + "Success"
-					} else {
-						resultText += "\n" + "				" + "Failed"
-						break
-					}
-					time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
-				}
-			}
-		}
-	}
+func ExecuteTestFromTemplate(t *TestCategory, resultWidget fyne.Widget) {
+	// actionsMap := utils.ActionsMap()
+	// resultText := "Run test for category " + t.TestCategoryName
+	// for _, group := range t.TestCategoryGroups {
+	// 	resultText += "\n" + "	Run test for group" + group.TestGroupName
+	// 	for _, test := range group.TestGroupTestCases {
+	// 		resultText += "\n" + "		Run test for test" + test.TestCaseName
+	// 		var capturedTime time.Time
+	// 		for _, step := range test.TestCaseSteps {
+	// 			resultText += "\n" + "			Run step" + step.StepName
+	// 			if step.StepAction == "CaptureTime" {
+	// 				capturedTime = time.Now()
+	// 				resultText += "\n			Capture time"
+	// 			} else {
+	// 				if step.StepAction == "CheckLog" {
+	// 					step.StepParams = append(step.StepParams, capturedTime)
+	// 				}
+	// 				time.Sleep(time.Duration(step.PreSleep) * time.Millisecond)
+	// 				if actionsMap[step.StepAction].(func([]interface{}) bool)(step.StepParams) {
+	// 					resultText += "\n" + "				" + "Success"
+	// 				} else {
+	// 					resultText += "\n" + "				" + "Failed"
+	// 					break
+	// 				}
+	// 				time.Sleep(time.Duration(step.PostSleep) * time.Millisecond)
+	// 			}
+	// 		}
+	// 	}
+	// }
 }

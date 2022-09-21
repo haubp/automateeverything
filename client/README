@@ -2,6 +2,7 @@ TODO:
     1. Show Result
     2. Design reporter mechanism
     3. step pre and post delay
+    4. Run command action
 
 Useful Command:
 1. Creat fyne package
