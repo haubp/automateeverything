@@ -85,11 +85,48 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 				sl[i].InitContext(a, w)
 			}
 
-			SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, sl...)
-
+			if SelectedTestCase != nil {
+				SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, sl...)
+			}
 			UpdateUI(a, w, t)
 
 			newW.Close()
+		}),
+	)
+	runCommandAction := container.New(
+		layout.NewHBoxLayout(),
+		widget.NewLabel("  Run Command Action"),
+		layout.NewSpacer(),
+		widget.NewButton("+", func() {
+			runCommandConfigWindow := a.NewWindow("Command Configuration")
+			commandEntry := widget.NewEntry()
+			content := container.New(
+				layout.NewGridLayoutWithRows(2),
+				container.New(layout.NewGridLayoutWithColumns(2), widget.NewLabel("Command"), commandEntry),
+				layout.NewSpacer(),
+				container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Finish", func(){
+					newStep := Step{
+						StepName: "Run Command",
+						StepAction: "RunCommand",
+						StepParams: []interface{}{commandEntry.Text},
+						PreSleep: 1000,
+						PostSleep: 1000,
+					}
+					newStep.InitContext(a, w)
+
+					if SelectedTestCase != nil {
+						SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+					}
+
+					UpdateUI(a, w, t)
+
+					runCommandConfigWindow.Close()
+				})),
+			)
+			runCommandConfigWindow.SetContent(content)
+			runCommandConfigWindow.Resize(fyne.NewSize(400, 50))
+			runCommandConfigWindow.CenterOnScreen()
+			runCommandConfigWindow.Show()
 		}),
 	)
 	keyboardTyping := container.New(
@@ -113,7 +150,9 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 					}
 					newStep.InitContext(a, w)
 
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+					if SelectedTestCase != nil {
+						SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+					}
 
 					UpdateUI(a, w, t)
 
@@ -148,7 +187,9 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 					}
 					newStep.InitContext(a, w)
 
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+					if SelectedTestCase != nil {
+						SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+					}
 
 					UpdateUI(a, w, t)
 
@@ -180,7 +221,10 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 						PostSleep: 1000,
 					}
 					newStep.InitContext(a, w)
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+
+					if SelectedTestCase != nil {
+						SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
+					}
 
 					UpdateUI(a, w, t)
 
@@ -219,15 +263,16 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 	addNewStepButton := widget.NewButton("Add New Step", func() {
 		newActionWindow := a.NewWindow("Add New Step")
 		content := container.New(layout.NewMaxLayout(), widget.NewCard("", "Action:", container.New(
-			layout.NewGridLayoutWithRows(6),
+			layout.NewGridLayoutWithRows(7),
+			runCommandAction,
 			manualAction,
 			checkLog,
 			scanScreen,
 			keyboardTyping,
 			layout.NewSpacer(),
-			container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Add", func(){
+			container.New(layout.NewHBoxLayout(), layout.NewSpacer(), widget.NewButton("Done", func(){
 				newActionWindow.Close()
-				UpdateUI(a, w, t)
+				// UpdateUI(a, w, t)
 			})),
 		)))
 		newActionWindow.SetContent(content)

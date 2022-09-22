@@ -8,58 +8,10 @@
      "name": "b",
      "test_steps": [
       {
-       "step_name": "Move Mouse",
-       "step_action": "MoveMouse",
+       "step_name": "Run Command",
+       "step_action": "RunCommand",
        "step_params": [
-        1413,
-        559
-       ],
-       "step_pre_sleep": 1000,
-       "step_post_sleep": 1000
-      },
-      {
-       "step_name": "Right Click",
-       "step_action": "RightClick",
-       "step_params": [
-        false
-       ],
-       "step_pre_sleep": 1000,
-       "step_post_sleep": 1000
-      },
-      {
-       "step_name": "Move Mouse",
-       "step_action": "MoveMouse",
-       "step_params": [
-        1353,
-        569
-       ],
-       "step_pre_sleep": 1000,
-       "step_post_sleep": 1000
-      },
-      {
-       "step_name": "Left Click",
-       "step_action": "LeftClick",
-       "step_params": [
-        false
-       ],
-       "step_pre_sleep": 1000,
-       "step_post_sleep": 1000
-      },
-      {
-       "step_name": "Move Mouse",
-       "step_action": "MoveMouse",
-       "step_params": [
-        775,
-        394
-       ],
-       "step_pre_sleep": 1000,
-       "step_post_sleep": 1000
-      },
-      {
-       "step_name": "Left Click",
-       "step_action": "LeftClick",
-       "step_params": [
-        false
+        "ls"
        ],
        "step_pre_sleep": 1000,
        "step_post_sleep": 1000

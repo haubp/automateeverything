@@ -10,7 +10,7 @@ func ActionsMap() map[string]interface{} {
 		"ScrollMouse": ScrollMouse,
 		"CheckLog": CheckLog,
 		"KeyboardTyping": KeyboardTyping,
+		"RunCommand": RunCommand,
 	}
-
 	return actionsMap
 }

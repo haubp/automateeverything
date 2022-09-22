@@ -1,8 +1,7 @@
 TODO:
-    1. Run command action
+    1. Add step id
     2. Design reporter mechanism
     3. crash: many steps?
-    
 
 Useful Command:
 1. Creat fyne package
@@ -15,8 +14,6 @@ Need to copy 2 items when delivering
     2. template.json
 
 crash:
-UNSUPPORTED (log once): POSSIBLE ISSUE: unit 0 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
-^Csignal: interrupt
 haubui@HAU-BUI-LT client % go run main.go 
 fatal error: unexpected signal during runtime execution
 [signal SIGSEGV: segmentation violation code=0x2 addr=0x7c pc=0x134833aac]
