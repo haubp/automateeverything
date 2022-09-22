@@ -52,7 +52,7 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 										container.New(	layout.NewVBoxLayout(),
 														layout.NewSpacer(),
 														widget.NewButton("Add", func(){
-															newTestCase := TestCase{TestCaseName: testCaseNameEntry.Text, TestCaseSteps:[]Step{} }
+															newTestCase := TestCase{TestCaseName: testCaseNameEntry.Text, TestCaseSteps:[]*Step{} }
 															newTestCase.InitContext(c.A, c.W, c.Category)
 															newTestCase.Widget.Show()
 															c.TestGroupTestCases = append(c.TestGroupTestCases, &newTestCase)

@@ -12,7 +12,7 @@ import (
 // TestCase test case
 type TestCase struct {
 	TestCaseName string `json:"name"`
-	TestCaseSteps []Step `json:"test_steps"`
+	TestCaseSteps []*Step `json:"test_steps"`
 	Result string `json:"result"`
 	Widget *fyne.Container `json:"-"`
 	A fyne.App `json:"-"`

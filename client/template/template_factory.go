@@ -113,7 +113,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 					}
 					newStep.InitContext(a, w)
 
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
+					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
 
 					UpdateUI(a, w, t)
 
@@ -148,7 +148,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 					}
 					newStep.InitContext(a, w)
 
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
+					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
 
 					UpdateUI(a, w, t)
 
@@ -180,7 +180,7 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 						PostSleep: 1000,
 					}
 					newStep.InitContext(a, w)
-					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, newStep)
+					SelectedTestCase.TestCaseSteps = append(SelectedTestCase.TestCaseSteps, &newStep)
 
 					UpdateUI(a, w, t)
 
@@ -204,12 +204,17 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 		}
 	}
 
-	var displayStepWidgets []fyne.CanvasObject
+	upperBorder := canvas.NewRectangle(color.White)
+	upperBorder.SetMinSize(fyne.NewSize(500, 1))
+	displayStepWidgets := []fyne.CanvasObject{ upperBorder }
 	if SelectedTestCase != nil {
 		for stepIndex := range SelectedTestCase.TestCaseSteps {
 			displayStepWidgets = append(displayStepWidgets, SelectedTestCase.TestCaseSteps[stepIndex].GetWidget())
 		}
 	}
+	bottomBorder := canvas.NewRectangle(color.White)
+	bottomBorder.SetMinSize(fyne.NewSize(500, 1))
+	displayStepWidgets = append(displayStepWidgets, bottomBorder)
 
 	addNewStepButton := widget.NewButton("Add New Step", func() {
 		newActionWindow := a.NewWindow("Add New Step")
@@ -235,9 +240,10 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
         container.NewVBox(
             displayWidgets...
         ),
-    )
+	)
 
 	c2 := container.NewVScroll(
+		
         container.NewVBox(
 			displayStepWidgets...
 		),
@@ -277,15 +283,19 @@ func CreateTestPage(a fyne.App, w fyne.Window, t *TestCategory) *fyne.Container 
 	} else {
 		selectedTestCaseIndicator.Text = "\t" + "No Test Case Selected"
 	}
+
+	rightBorder := canvas.NewRectangle(color.White)
+	rightBorder.SetMinSize(fyne.NewSize(1, 300))
 	
 	testPageContainer := container.New(
 		layout.NewGridLayoutWithRows(2), 
 		container.New(	layout.NewGridLayoutWithColumns(2), 
 						c1,
-						container.New(	layout.NewGridLayoutWithRows(2),
+						container.New(	layout.NewVBoxLayout(),
 										container.New(	layout.NewHBoxLayout(), 
-														line, 
+														rightBorder,
 														c2),
+										layout.NewSpacer(),
 										container.New(	layout.NewHBoxLayout(),
 														container.New(	layout.NewVBoxLayout(),
 																		selectedTestCaseIndicator,

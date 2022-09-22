@@ -1,15 +1,18 @@
 package template
 
 import (
+	"image/color"
 	"log"
-	hook "github.com/robotn/gohook"
-	"github.com/go-vgo/robotgo"
+	"strconv"
+
+	"automateeverything.com/v2/custom"
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
-	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/canvas"
-	"image/color"
+	"github.com/go-vgo/robotgo"
+	hook "github.com/robotn/gohook"
 )
 
 // Step type
@@ -25,21 +28,21 @@ type Step struct {
 }
 
 // MakeSteps auto
-func MakeSteps() []Step {
-  steps := []Step{}
+func MakeSteps() []*Step {
+  steps := []*Step{}
 
   log.Println("Start Hook")
 
   hook.Register(hook.KeyDown, []string{"d"}, func(e hook.Event) {
 	x, y := robotgo.GetMousePos()
     log.Println("double click", x, y)
-  	steps = append(steps, Step{
+  	steps = append(steps, &Step{
     	StepName: "Move Mouse", 
     	StepAction: "MoveMouse", 
     	StepParams: []interface{}{ x, y }, 
     	PreSleep: 1000, 
     	PostSleep: 1000})
-	steps = append(steps, Step{
+	steps = append(steps, &Step{
     	StepName: "Double Click", 
     	StepAction: "LeftClick", 
     	StepParams: []interface{}{ true }, 
@@ -50,13 +53,13 @@ func MakeSteps() []Step {
   hook.Register(hook.KeyDown, []string{"c"}, func(e hook.Event) {
 	x, y := robotgo.GetMousePos()
     log.Println("click", x, y)
-    steps = append(steps, Step{
+    steps = append(steps, &Step{
       	StepName: "Move Mouse", 
       	StepAction: "MoveMouse", 
       	StepParams: []interface{}{ x, y }, 
       	PreSleep: 1000, 
       	PostSleep: 1000})
-	steps = append(steps, Step{
+	steps = append(steps, &Step{
     	StepName: "Left Click", 
     	StepAction: "LeftClick", 
     	StepParams: []interface{}{ false }, 
@@ -67,13 +70,13 @@ func MakeSteps() []Step {
   hook.Register(hook.KeyDown, []string{"r"}, func(e hook.Event) {
 	x, y := robotgo.GetMousePos()
     log.Println("right click", x, y)
-  	steps = append(steps, Step{
+  	steps = append(steps, &Step{
     	StepName: "Move Mouse", 
     	StepAction: "MoveMouse", 
     	StepParams: []interface{}{ x, y }, 
     	PreSleep: 1000, 
     	PostSleep: 1000})
-	steps = append(steps, Step{
+	steps = append(steps, &Step{
     	StepName: "Right Click", 
     	StepAction: "RightClick", 
     	StepParams: []interface{}{ false }, 
@@ -84,13 +87,13 @@ func MakeSteps() []Step {
   hook.Register(hook.KeyDown, []string{"s"}, func(e hook.Event) {
     x, y := robotgo.GetMousePos()
 	log.Println("scroll", x, y)
-    steps = append(steps, Step{
+    steps = append(steps, &Step{
       StepName: "Move Mouse", 
       StepAction: "MoveMouse", 
       StepParams: []interface{}{ x, y }, 
       PreSleep: 1000, 
       PostSleep: 1000})
-    steps = append(steps, Step{
+    steps = append(steps, &Step{
       StepName: "Scroll Mouse", 
       StepAction: "ScrollMouse", 
       StepParams: []interface{}{ 100 }, 
@@ -99,7 +102,7 @@ func MakeSteps() []Step {
     })
 
 	hook.Register(hook.KeyDown, []string{"t"}, func(e hook.Event) {
-		steps = append(steps, Step{
+		steps = append(steps, &Step{
 		  StepName: "Capture Time", 
 		  StepAction: "CaptureTime", 
 		  StepParams: []interface{}{ }, 
@@ -127,8 +130,36 @@ func (c * Step) InitContext(a fyne.App, w fyne.Window) {
 	c.Widget = container.New(layout.NewHBoxLayout(),
 		canvas.NewText(c.StepName, color.RGBA{0xD8, 0xD8, 0xD8, 1}), 
 		layout.NewSpacer(),
-		widget.NewButton("X", func(){
-		
+		widget.NewButton("...", func(){
+			newW := a.NewWindow("Step configuration")
+			preDelayEntry := custom.NewFixSizeEntry()
+			postDelayEntry := custom.NewFixSizeEntry()
+			preDelayEntry.SetFixSize(fyne.NewSize(100, 10))
+			postDelayEntry.SetFixSize(fyne.NewSize(100, 10))
+			preDelayEntry.SetText(strconv.FormatInt(int64(c.PreSleep), 10))
+			postDelayEntry.SetText(strconv.FormatInt(int64(c.PostSleep), 10))
+			content := container.New(	layout.NewVBoxLayout(),
+										container.New(	layout.NewHBoxLayout(),
+											widget.NewLabel("Pre Delay"),
+											preDelayEntry,
+											layout.NewSpacer(),
+											widget.NewButton("Set", func() {
+												c.PreSleep, _ = strconv.Atoi(preDelayEntry.Text)
+											}),
+										),
+										container.New(	layout.NewHBoxLayout(),
+											widget.NewLabel("Post Delay"),
+											postDelayEntry,
+											layout.NewSpacer(),
+											widget.NewButton("Set", func() {
+												c.PostSleep, _ = strconv.Atoi(postDelayEntry.Text)
+											}),
+										),
+									)
+			newW.SetContent(content)
+			newW.Resize(fyne.NewSize(300, 100))
+			newW.CenterOnScreen()
+			newW.Show()
 		}),
 	)
 }

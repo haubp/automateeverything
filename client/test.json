@@ -11,15 +11,15 @@
        "step_name": "Move Mouse",
        "step_action": "MoveMouse",
        "step_params": [
-        1413,
-        559
+        1138,
+        447
        ],
-       "step_pre_sleep": 1000,
-       "step_post_sleep": 1000
+       "step_pre_sleep": 2000,
+       "step_post_sleep": 31000
       },
       {
-       "step_name": "Right Click",
-       "step_action": "RightClick",
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
        "step_params": [
         false
        ],
@@ -30,8 +30,8 @@
        "step_name": "Move Mouse",
        "step_action": "MoveMouse",
        "step_params": [
-        1353,
-        569
+        1138,
+        447
        ],
        "step_pre_sleep": 1000,
        "step_post_sleep": 1000
@@ -49,8 +49,8 @@
        "step_name": "Move Mouse",
        "step_action": "MoveMouse",
        "step_params": [
-        775,
-        394
+        1138,
+        447
        ],
        "step_pre_sleep": 1000,
        "step_post_sleep": 1000
@@ -65,6 +65,11 @@
        "step_post_sleep": 1000
       }
      ],
+     "result": "Not Run"
+    },
+    {
+     "name": "c",
+     "test_steps": [],
      "result": "Not Run"
     }
    ]
