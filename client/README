@@ -1,8 +1,8 @@
 TODO:
-    1. crash: many steps?
+    1. Run command action
     2. Design reporter mechanism
-    3. step pre and post delay
-    4. Run command action
+    3. crash: many steps?
+    
 
 Useful Command:
 1. Creat fyne package
