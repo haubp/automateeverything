@@ -2,22 +2,77 @@
  "test_category_name": "init",
  "test_category_groups": [
   {
-   "test_group_name": "a",
+   "test_group_name": "g",
    "test_group_tests": [
     {
-     "name": "b",
+     "name": "t",
      "test_steps": [
       {
-       "step_name": "Run Command",
-       "step_action": "RunCommand",
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
        "step_params": [
-        "ls"
+        1000,
+        383
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
+       "step_params": [
+        1023,
+        207
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
+       "step_params": [
+        840,
+        162
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
        ],
        "step_pre_sleep": 1000,
        "step_post_sleep": 1000
       }
      ],
-     "result": "Not Run"
+     "result": "Not Run",
+     "id": 0
+    },
+    {
+     "name": "t2",
+     "test_steps": [],
+     "result": "Not Run",
+     "id": 1
     }
    ]
   }

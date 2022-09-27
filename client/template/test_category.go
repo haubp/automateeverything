@@ -11,12 +11,12 @@ import (
 
 // TestCategory test category
 type TestCategory struct {
-	TestCategoryName string `json:"test_category_name"`
+	TestCategoryName string 		`json:"test_category_name"`
 	TestCategoryGroups []*TestGroup `json:"test_category_groups"`
-	DisplayTestGroups bool `json:"-"`
-	Widget *fyne.Container `json:"-"`
-	W fyne.Window `json:"-"`
-	A fyne.App `json:"-"`
+	DisplayTestGroups bool 			`json:"-"`
+	Widget *fyne.Container 			`json:"-"`
+	W fyne.Window 					`json:"-"`
+	A fyne.App 						`json:"-"`
 }
 
 // InitContext init test category

@@ -11,13 +11,14 @@ import (
 
 // TestCase test case
 type TestCase struct {
-	TestCaseName string `json:"name"`
-	TestCaseSteps []*Step `json:"test_steps"`
-	Result string `json:"result"`
-	Widget *fyne.Container `json:"-"`
-	A fyne.App `json:"-"`
-	W fyne.Window `json:"-"`
-	Category *TestCategory `json:"-"`
+	TestCaseName string 	`json:"name"`
+	TestCaseSteps []*Step 	`json:"test_steps"`
+	Result string 			`json:"result"`
+	Id int					`json:"id"`
+	Widget *fyne.Container 	`json:"-"`
+	A fyne.App 				`json:"-"`
+	W fyne.Window 			`json:"-"`
+	Category *TestCategory 	`json:"-"`
 }
 
 // InitContext init test case

@@ -11,13 +11,13 @@ import (
 
 // TestGroup test group
 type TestGroup struct {
-	TestGroupName string `json:"test_group_name"`
-	TestGroupTestCases []*TestCase `json:"test_group_tests"`
-	Category *TestCategory `json:"-"`
-	Widget *fyne.Container `json:"-"`
-	W fyne.Window `json:"-"`
-	A fyne.App `json:"-"`
-	DisplayTestCases bool `json:"-"`
+	TestGroupName string 			`json:"test_group_name"`
+	TestGroupTestCases []*TestCase 	`json:"test_group_tests"`
+	Category *TestCategory 			`json:"-"`
+	Widget *fyne.Container 			`json:"-"`
+	W fyne.Window 					`json:"-"`
+	A fyne.App 						`json:"-"`
+	DisplayTestCases bool 			`json:"-"`
 }
 
 // InitContext Init context for test group
@@ -55,6 +55,8 @@ func (c * TestGroup) InitContext(a fyne.App, w fyne.Window, t *TestCategory) {
 															newTestCase := TestCase{TestCaseName: testCaseNameEntry.Text, TestCaseSteps:[]*Step{} }
 															newTestCase.InitContext(c.A, c.W, c.Category)
 															newTestCase.Widget.Show()
+															newTestCase.Id = len(c.TestGroupTestCases)
+
 															c.TestGroupTestCases = append(c.TestGroupTestCases, &newTestCase)
 
 															UpdateUI(c.A, c.W, c.Category)

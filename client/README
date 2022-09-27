@@ -1,7 +1,6 @@
 TODO:
-    1. Add step id
-    2. Design reporter mechanism
-    3. crash: many steps?
+    1. Design reporter mechanism
+    2. crash: many steps?
 
 Useful Command:
 1. Creat fyne package

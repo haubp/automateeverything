@@ -17,14 +17,14 @@ import (
 
 // Step type
 type Step struct {
-	StepName string `json:"step_name"`
-	StepAction string `json:"step_action"`
-	StepParams []interface{} `json:"step_params"`
-	PreSleep int `json:"step_pre_sleep"`
-	PostSleep int `json:"step_post_sleep"`
-	Widget *fyne.Container `json:"-"`
-	W fyne.Window `json:"-"`
-	A fyne.App `json:"-"`
+	StepName string 			`json:"step_name"`
+	StepAction string 			`json:"step_action"`
+	StepParams []interface{} 	`json:"step_params"`
+	PreSleep int 				`json:"step_pre_sleep"`
+	PostSleep int 				`json:"step_post_sleep"`
+	Widget *fyne.Container 		`json:"-"`
+	W fyne.Window 				`json:"-"`
+	A fyne.App 					`json:"-"`
 }
 
 // MakeSteps auto
@@ -143,7 +143,7 @@ func (c * Step) InitContext(a fyne.App, w fyne.Window) {
 											widget.NewLabel("Pre Delay"),
 											preDelayEntry,
 											layout.NewSpacer(),
-											widget.NewButton("Set", func() {
+											widget.NewButton("Update", func() {
 												c.PreSleep, _ = strconv.Atoi(preDelayEntry.Text)
 											}),
 										),
@@ -151,7 +151,7 @@ func (c * Step) InitContext(a fyne.App, w fyne.Window) {
 											widget.NewLabel("Post Delay"),
 											postDelayEntry,
 											layout.NewSpacer(),
-											widget.NewButton("Set", func() {
+											widget.NewButton("Update", func() {
 												c.PostSleep, _ = strconv.Atoi(postDelayEntry.Text)
 											}),
 										),
