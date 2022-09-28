@@ -1,0 +1,67 @@
+Author: Hau Bui
+
+Automate Everything Infrastructure
+
+Client
+    1. Generate Test Case Templage (v)
+    2. Run Test Case Template
+        2.1. Run from local file (v)
+        2.2. Run from Cloud
+    3. Register to Cloud
+    4. Report result
+        3.0. Generate Report File (v)
+        3.1. Show to Client UI
+        3.2. Upload result to Cloud
+
+Backend
+    1. Login and generate User ID
+    2. Allow Node to register itself to specific User base on ID
+    3. Upload Test Template
+    4. Push Test Template to all registered Nodes
+    5. Receive Test Result from Nodes
+
+Frontend
+    1. Login Page
+    2. Show registered User ID
+    3. Show all Registerd Node
+    4. Show Node status
+    5. Allow user to decide which node will run which test case
+    6. Trigger push test template to Nodes
+    7. Show Test result for user
+
+Database
+    Write Flow
+    _______________    Command                    ___________________            ____________
+    | Backend_API |    ------->  QUEUE  ------>   | Database_Worker |   ------>  | Postgres |
+    _______________                               ___________________            ____________
+
+    1. User: /data/<User_Id>/
+        ________________
+        | Id | User_Id |
+        ________________
+    2.  Node:
+        __________________________
+        | Id | Node_Id | User_Id |
+        __________________________
+    3. Node_Command:
+        ____________________
+        | Node_Id | Status |
+        ____________________
+
+Flow
+    1. User Register:
+        1.1 Generate User_Id for each user and push into User table.
+        1.2 Add to User table
+        1.3 Mkdir /data/<User_Id>
+    2. Node Register:
+        2.1 Received User_Id, generate Node_Id and push to Node table
+    3. Upload Test Template:
+        3.1 Receive Test Template and User_Id, save it into /data/<User_Id>/test_template/<User_Id>.json
+    4. Trigger Test Template to all Node and get report output:
+        4.1 Add Node status START to Node_Command table
+        4.2 Each Node query Node_Command table to check, and if it command is TRIGGER_TEST 
+            -> Download template from /data/<User_Id>/test_template
+        4.3 Update Node_Command table: START -> RUNNING
+        4.4 Run Test Template and generate output Report
+        4.5 Upload Output Report to /data/<User_Id>/test_report/<Node_Id>.json
+        4.6 Delete itself from Node_Command table
