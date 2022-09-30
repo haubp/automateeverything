@@ -14,12 +14,103 @@ Client
         3.2. Upload result to Cloud
 
 Backend
-    1. Login and generate User ID
-    2. Allow Node to register itself to specific User base on ID
-    3. Upload Test Template
-    4. Push Test Template to all registered Nodes
-    5. Receive Test Result from Nodes
-
+    1. User
+        1.1 User register:
+            Request:
+                POST /user
+                {
+                    "user_name": <>,
+                    "password": <>,
+                }
+            Response:
+                {
+                    "user_id": <>,
+                }
+                cookie
+            Action:
+                1.1.1 Create folder   /data/<User_Id>/test_template
+                                    /data/<User_Id>/test_report
+                1.1.2 Add user_id into User Table
+        1.2. User Login:
+            Request:
+                GET /user
+                {
+                    "user_name": <>,
+                    "password": <>,
+                }
+            Response:
+                {
+                    "user_id": <>
+                }
+                cookie
+    2. Node
+        2.1 Register Node to User by user_id:
+            Request:
+                POST /node
+                {
+                    "user_id": <>
+                }
+            Response:
+                {
+                    "node_id": <>
+                }
+            Action:
+                2.1.1 Generate node_id and add to Node table with user_id
+        2.2 Unregister Node to User by user_id:
+            Request:
+                DELETE /node
+                {
+                    "node_id": <>
+                }
+            Response:
+                {}
+            Action:
+                2.2.1 Delete entry with node_id from Node table and Command table
+        2.3. Query Registered Nodes by user_id:
+            Request:
+                GET /node
+                {
+                    "user_id": <>
+                }
+            Response:
+                {
+                    "node_id 1": <>,
+                    "node_id 2": <>,
+                }
+            Action:
+            2.3.1 Query from Node table all registerd node by user_id
+        2.4 Add Node Command
+            Request:
+                POST /node/command
+                {
+                    "node_id_list": [],
+                    "command": <>,
+                }
+            Response:
+                {}
+            Action:
+                2.4.1 Add command entry into Command table
+        2.5 Get Node command
+            Request:
+                GET /node/command
+                {
+                    "node_id": <>
+                }
+            Response:
+                {
+                    "command": <>
+                }
+        2.6 Push Node result
+            Request:
+                POST /node/result?<node_id>
+                {
+                    <result>   
+                }
+            Response:
+                {}
+            Action:
+                2.6.1 Add result json file into /data/<user-id>/test_report/<node_id>.json
+                
 Frontend
     1. Login Page
     2. Show registered User ID
@@ -33,20 +124,20 @@ Database
     Write Flow
     _______________    Command                    ___________________            ____________
     | Backend_API |    ------->  QUEUE  ------>   | Database_Worker |   ------>  | Postgres |
-    _______________                               ___________________            ____________
+    ---------------                               -------------------            ------------
 
     1. User: /data/<User_Id>/
         ________________
         | Id | User_Id |
-        ________________
+        ----------------
     2.  Node:
         __________________________
         | Id | Node_Id | User_Id |
-        __________________________
+        --------------------------
     3. Node_Command:
-        ____________________
-        | Node_Id | Status |
-        ____________________
+        _____________________
+        | Node_Id | Command |
+        ---------------------
 
 Flow
     1. User Register:
