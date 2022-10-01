@@ -24,9 +24,9 @@ Backend
                 }
             Response:
                 {
-                    "user_id": <>,
+                    "token": <>,
                 }
-                cookie
+                + cookie
             Action:
                 1.1.1 Create folder   /data/<User_Id>/test_template
                                     /data/<User_Id>/test_report
@@ -40,9 +40,9 @@ Backend
                 }
             Response:
                 {
-                    "user_id": <>
+                    "token": <>
                 }
-                cookie
+                + cookie
     2. Node
         2.1 Register Node to User by user_id:
             Request:
@@ -126,18 +126,24 @@ Database
     | Backend_API |    ------->  QUEUE  ------>   | Database_Worker |   ------>  | Postgres |
     ---------------                               -------------------            ------------
 
-    1. User: /data/<User_Id>/
-        ________________
-        | Id | User_Id |
-        ----------------
-    2.  Node:
-        __________________________
-        | Id | Node_Id | User_Id |
-        --------------------------
-    3. Node_Command:
+    1. users: /data/<User_Id>/
+        ____________________
+        | user_id | authen |
+        --------------------
+    2.  nodes:
         _____________________
-        | Node_Id | Command |
+        | node_id | user_id |
         ---------------------
+    3. node_commands:
+        _____________________
+        | node_id | command |
+        ---------------------
+
+        enum COMMAND {
+            READY,
+            RUNNING,
+            DONE,
+        };
 
 Flow
     1. User Register:
