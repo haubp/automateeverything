@@ -1,41 +1,27 @@
-const knex = require("knex");
-
-
-const database = knex({
-    client: 'pg',
-    connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: 'a',
-        database: 'autmation'
-    }
-});
-
-// Get current list of user from database
-let currentTotalUser = 0;
-(async function() {
-    let totalUser = await database('users').count("user_id as CNT").catch(e => console.log(e));
-    currentTotalUser = totalUser[0].CNT;
-    console.log(`Current Total User is ${currentTotalUser}`);
-})()
+const database = require("./database.config");
 
 const userModel = {
-    getUser: async function() {
-        let users = await database('users').select("*").catch(e => console.log(e));
-        return users;
+    getUser: async function(user_id) {
+        let user = await database('users')
+                            .select("*")
+                            .where({user_id: user_id})
+                            .catch(e => console.log(e));
+        return user;
     },
-    createUser: async function(user) {
+    createUser: async function(user_id, user_name) {
         console.log("Create new user");
-        await database("users").insert({   
-                                            user_id: currentTotalUser,
-                                            authen:  user.authen
-                                       } )
-                               .catch(e => console.log(e));
-        // TODO: Check if create user ok or not before increase user counter
-        currentTotalUser++;
+        await database("users")
+                .insert({   
+                            user_id: user_id,
+                            user_name:  user_name
+                        })
+                .catch(e => console.log(e));
     },
     deleteUser: async function(user_id) {
-        await database("users").del().where({user_id: user_id}).catch(e => console.log(e));
+        await database("users")
+                .del()
+                .where({user_id: user_id})
+                .catch(e => console.log(e));
     }
 };
 

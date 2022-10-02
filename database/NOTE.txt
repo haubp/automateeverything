@@ -4,18 +4,18 @@ DB: postgres
 commands: 
 
 CREATE TABLE users (
-    user_id INT,
-    authen VARCHAR(1024),
+    user_id VARCHAR(1024),
+    user_name VARCHAR(1024),
     PRIMARY KEY (user_id)
 );
 
 CREATE TABLE nodes (
-    node_id INT,
-    user_id INT REFERENCES users,
+    node_id VARCHAR(1024),
+    user_id VARCHAR(1024) REFERENCES users,
     PRIMARY KEY (node_id)
 );
 
 CREATE TABLE node_commands (
-    node_id INT REFERENCES nodes,
+    node_id VARCHAR(1024) REFERENCES nodes,
     command VARCHAR(1024)
 );

@@ -73,10 +73,14 @@ Backend
                     "user_id": <>
                 }
             Response:
-                {
-                    "node_id 1": <>,
-                    "node_id 2": <>,
-                }
+                [
+                    {
+                        "node_id 1": <>
+                    },
+                    {
+                        "node_id 2": <>
+                    }
+                ]
             Action:
             2.3.1 Query from Node table all registerd node by user_id
         2.4 Add Node Command
@@ -102,7 +106,7 @@ Backend
                 }
         2.6 Push Node result
             Request:
-                POST /node/result?<node_id>
+                POST /node/result?node_id=<node_id>
                 {
                     <result>   
                 }

@@ -1,7 +1,7 @@
 {
-  "name": "porfolio_backend",
+  "name": "automateeverything_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Automate Everything Server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
