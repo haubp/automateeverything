@@ -1,0 +1,5 @@
+.nodeBoard {
+    display: flex;
+    flex-direction: row;
+
+}
