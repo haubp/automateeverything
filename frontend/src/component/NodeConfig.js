@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
+import { CheckCircle } from "react-bootstrap-icons";
 
 import "./NodeConfig.css";
 
@@ -18,7 +19,12 @@ export default function () {
       <div className="nodeBoard">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
-            <Card.Title>Node ID</Card.Title>
+            <Card.Title>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>Node ID</span>
+                <CheckCircle style={{ alignSelf: "end" }} />
+              </div>
+            </Card.Title>
             <Dropdown className="mb-2" onSelect={onSelectCategory}>
               <Dropdown.Toggle
                 className="w-75"
