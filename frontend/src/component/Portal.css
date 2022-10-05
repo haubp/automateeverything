@@ -2,3 +2,7 @@
     display: flex;
     flex-direction: row;
 }
+
+.left-pannel-controller {
+    margin-top: 50px;
+}

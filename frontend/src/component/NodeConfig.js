@@ -1,66 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import "./NodeConfig.css";
 
 export default function () {
+  const onSelectCategory = function (e) {
+    setSelectedCategory(e);
+  };
+  const onSelectGroup = function (e) {
+    setSelectedGroup(e);
+  };
+  let [selectedCategory, setSelectedCategory] = useState("Category");
+  let [selectedGroup, setSelectedGroup] = useState("Group");
   return (
     <>
       <div className="nodeBoard">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Node ID</Card.Title>
-            <div className="form-group mt-3">
-              <label>Category</label>
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Dropdown Button
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    Another action
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                    Something else
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-            <div className="form-group mt-3">
-              <label>Group</label>
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Dropdown Button
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    Another action
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                    Something else
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-            <div className="form-group mt-3">
-              <label>Test Cases</label>
+            <Dropdown className="mb-2" onSelect={onSelectCategory}>
+              <Dropdown.Toggle
+                className="w-75"
+                variant="success"
+                id="dropdown-basic"
+              >
+                {selectedCategory}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown className="mb-3" onSelect={onSelectGroup}>
+              <Dropdown.Toggle
+                className="w-75"
+                variant="success"
+                id="dropdown-basic"
+              >
+                {selectedGroup}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <label>Test Cases</label>
+            <div className="d-flex form-group mt-1">
               <input
                 type="password"
                 className="form-control mt-1"
-                placeholder="Enter test cases"
+                placeholder="From"
+              />
+              <p className="ms-1 me-1"> _ </p>
+              <input
+                type="password"
+                className="form-control mt-1"
+                placeholder="To"
               />
             </div>
           </Card.Body>
         </Card>
       </div>
-      <button type="submit" className="btn btn-primary">
-        Run
-      </button>
     </>
   );
 }
