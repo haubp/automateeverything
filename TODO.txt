@@ -1,0 +1,4 @@
+Client:
+    1. Go through RT
+Front-end:
+    1. Implement cookie

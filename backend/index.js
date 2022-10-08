@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 const nodeRouter = require("./routes/node.router");
 const userRouter = require("./routes/user.router");
 
@@ -10,16 +11,21 @@ const PORT = 6868;
     Logger
 */
 app.use((req, res, next) => {
-    const start = Date.now();
-    next();
-    const delta = Date.now() - start;
-    console.log(`${req.method} ${req.baseUrl} ${req.path} ${delta}ms`);
+  const start = Date.now();
+  next();
+  const delta = Date.now() - start;
+  console.log(`${req.method} ${req.baseUrl} ${req.path} ${delta}ms`);
 });
+
+/*
+    CORS
+*/
+app.use(cors());
 
 /*
     Serve public file
 */
-app.use('/public', express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 /*
     JSON middleware
@@ -37,5 +43,5 @@ app.use("/api/v1/node", nodeRouter);
 app.use("/api/v1/user", userRouter);
 
 app.listen(PORT, () => {
-    console.log(`Listening on ${PORT} ...`);
+  console.log(`Listening on ${PORT} ...`);
 });

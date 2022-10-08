@@ -1,16 +1,68 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import BackendConfig from "../BackendConfig";
+import axios from "axios";
 
 export default function (props) {
-  let [authMode, setAuthMode] = useState("signin")
+  let [authMode, setAuthMode] = useState("signin");
+  let [userName, setUserName] = useState("");
+  let [password, setPassword] = useState("");
 
   const changeAuthMode = () => {
-    setAuthMode(authMode === "signin" ? "signup" : "signin")
-  }
+    setAuthMode(authMode === "signin" ? "signup" : "signin");
+    setUserName("");
+    setPassword("");
+  };
+
+  const onSignInClick = async (e) => {
+    e.preventDefault();
+
+    if (!userName || !password) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await axios.get(
+      `http://${BackendConfig.url}:${BackendConfig.port}${BackendConfig.api.user}?user_name=${userName}&password=${password}`,
+      config
+    );
+
+    const token = response.data ? response.data : '';
+  };
+
+  const onSignUpClick = async (e) => {
+    e.preventDefault();
+
+    if (!password || !userName) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = {
+      user_name: userName,
+      password: password,
+    };
+    console.log(body);
+    const response = await axios.post(
+      `http://${BackendConfig.url}:${BackendConfig.port}${BackendConfig.api.user}`,
+      body,
+      config
+    );
+
+    console.log(response.data);
+  };
 
   if (authMode === "signin") {
     return (
       <div className="Auth-form-container">
-        <form className="Auth-form">
+        <form className="Auth-form" onSubmit={onSignInClick}>
           <div className="Auth-form-content">
             <h3 className="Auth-form-title">Sign In</h3>
             <div className="text-center">
@@ -20,11 +72,13 @@ export default function (props) {
               </span>
             </div>
             <div className="form-group mt-3">
-              <label>Email address</label>
+              <label>User Name</label>
               <input
-                type="email"
+                type="text"
                 className="form-control mt-1"
-                placeholder="Enter email"
+                placeholder="admin"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -32,25 +86,27 @@ export default function (props) {
               <input
                 type="password"
                 className="form-control mt-1"
-                placeholder="Enter password"
+                placeholder="******"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
-                Submit
+                Sign In
               </button>
             </div>
           </div>
         </form>
       </div>
-    )
+    );
   }
 
   return (
     <div className="Auth-form-container">
-      <form className="Auth-form">
+      <form className="Auth-form" onSubmit={onSignUpClick}>
         <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign In</h3>
+          <h3 className="Auth-form-title">Sign Up</h3>
           <div className="text-center">
             Already registered?{" "}
             <span className="link-primary" onClick={changeAuthMode}>
@@ -58,19 +114,13 @@ export default function (props) {
             </span>
           </div>
           <div className="form-group mt-3">
-            <label>Full Name</label>
+            <label>User Name</label>
             <input
-              type="email"
+              type="text"
               className="form-control mt-1"
-              placeholder="e.g Jane Doe"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <label>Email address</label>
-            <input
-              type="email"
-              className="form-control mt-1"
-              placeholder="Email Address"
+              placeholder="admin"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">
@@ -78,16 +128,18 @@ export default function (props) {
             <input
               type="password"
               className="form-control mt-1"
-              placeholder="Password"
+              placeholder="*******"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">
-              Submit
+              Sign Up
             </button>
           </div>
         </div>
       </form>
     </div>
-  )
+  );
 }

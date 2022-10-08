@@ -51,7 +51,8 @@ async function getNodeCommand(req, res) {
         return;
     }
     const node_command = await nodeCommandsModel.getNodeCommand(req.body.node_id);
-    res.status(200).json(node_command.command);
+
+    res.status(200).json(node_command ? node_command.command : {});
 }
 
 async function reportNodeResult(req, res) {

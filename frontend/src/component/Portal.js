@@ -11,7 +11,10 @@ import "./Portal.css";
 function Portal() {
   return (
     <Tab.Container id="left-tabs-example" defaultActiveKey="config">
-      <Row className="left-pannel-controller">
+      <Row sm={1}>
+        <p>User ID</p>
+      </Row>
+      <Row sm={10} className="left-pannel-controller">
         <Col sm={3}>
           <Nav variant="pills" className="flex-column">
             <Nav.Item>

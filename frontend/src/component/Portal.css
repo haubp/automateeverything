@@ -1,8 +1,8 @@
 .tab-content {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .left-pannel-controller {
-    margin-top: 50px;
+  margin-top: 50px;
 }
