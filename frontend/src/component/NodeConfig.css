@@ -1,4 +1,5 @@
 .nodeBoard {
     display: flex;
     flex-direction: row;
+    color: #256D85 !important;
 }
