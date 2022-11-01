@@ -43,3 +43,12 @@
 .cancel-button {
   margin-top: 1em;
 }
+
+.upload-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-btn {
+  margin-top: 1em;
+}

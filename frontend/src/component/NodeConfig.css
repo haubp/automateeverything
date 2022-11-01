@@ -3,3 +3,9 @@
     flex-direction: row;
     color: #256D85 !important;
 }
+
+.run-area {
+    margin-top: 2em;
+    display: flex;
+    justify-content: end;
+}

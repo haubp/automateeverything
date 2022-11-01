@@ -1,3 +1,9 @@
 .result-btn {
-    width: 6em;
+    width: 7em;
+}
+
+.report-download {
+    margin-top: 2em;
+    display: flex;
+    justify-content: end;
 }

@@ -1,0 +1,319 @@
+2022/09/21 09:06:18 Successfully Opened  template.json
+2022/09/21 10:35:06 Successfully Opened  template.json
+2022/09/21 10:38:30 Successfully Opened  template.json
+2022/09/21 10:39:25 Successfully Opened  template.json
+2022/09/21 10:43:43 Successfully Opened  template.json
+2022/09/21 10:44:17 Successfully Opened  template.json
+2022/09/21 10:44:47 Successfully Opened  template.json
+2022/09/21 10:45:29 Successfully Opened  template.json
+2022/09/21 10:46:41 Successfully Opened  template.json
+2022/09/21 10:48:58 Successfully Opened  template.json
+2022/09/21 10:49:01 Fyne error:  Failed to focus object which is not part of the canvas’ content, menu or overlays.
+2022/09/21 10:49:01   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/common/canvas.go:145
+2022/09/21 10:49:31 Successfully Opened  template.json
+2022/09/21 10:49:34 Fyne error:  Failed to focus object which is not part of the canvas’ content, menu or overlays.
+2022/09/21 10:49:34   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/common/canvas.go:145
+2022/09/21 10:50:07 Successfully Opened  template.json
+2022/09/21 10:51:43 Successfully Opened  template.json
+2022/09/21 10:55:54 Successfully Opened  template.json
+2022/09/21 10:56:23 Successfully Opened  template.json
+2022/09/21 10:57:01 Successfully Opened  template.json
+2022/09/21 13:28:57 Successfully Opened  template.json
+2022/09/21 13:29:48 Successfully Opened  template.json
+2022/09/21 14:00:07 Successfully Opened  template.json
+2022/09/21 14:07:20 Successfully Opened  template.json
+2022/09/21 14:55:24 Successfully Opened  template.json
+2022/09/21 14:56:05 Successfully Opened  template.json
+2022/09/21 14:57:13 Successfully Opened  template.json
+2022/09/21 14:57:21 Fyne error:  Getting favorite locations
+2022/09/21 14:57:21   Cause: uri is not listable
+2022/09/21 14:57:21   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/21 14:58:04 Successfully Opened  template.json
+2022/09/21 14:58:25 Fyne error:  Getting favorite locations
+2022/09/21 14:58:25   Cause: uri is not listable
+2022/09/21 14:58:25   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/21 15:02:39 Successfully Opened  template.json
+2022/09/21 15:03:15 Successfully Opened  template.json
+2022/09/21 15:04:35 Successfully Opened  template.json
+2022/09/21 15:05:30 Successfully Opened  template.json
+2022/09/21 15:06:38 Successfully Opened  template.json
+2022/09/21 15:12:27 Successfully Opened  template.json
+2022/09/21 15:12:50 Successfully Opened  template.json
+2022/09/21 15:26:20 Successfully Opened  template.json
+2022/09/21 16:00:28 Successfully Opened  template.json
+2022/09/21 17:12:29 Successfully Opened  template.json
+2022/09/22 10:18:40 Successfully Opened  template.json
+2022/09/22 10:18:49 Start Hook
+2022/09/22 10:18:49 Listening
+2022/09/22 10:18:54 right click 1399 161
+2022/09/22 10:18:54 click 1277 213
+2022/09/22 10:18:54 click 1141 453
+2022/09/22 10:18:55 click 1634 631
+2022/09/22 10:18:55 click 1382 827
+2022/09/22 10:18:55 click 941 817
+2022/09/22 10:18:55 click 627 831
+2022/09/22 10:18:55 click 263 862
+2022/09/22 10:18:56 click 239 944
+2022/09/22 10:18:56 click 419 998
+2022/09/22 10:18:56 click 821 980
+2022/09/22 10:18:56 click 1074 968
+2022/09/22 10:18:56 click 1188 836
+2022/09/22 10:18:57 click 831 593
+2022/09/22 10:18:57 click 416 428
+2022/09/22 10:18:57 click 265 299
+2022/09/22 10:18:57 click 214 215
+2022/09/22 10:18:57 click 508 116
+2022/09/22 10:18:58 click 952 99
+2022/09/22 10:18:58 click 1187 119
+2022/09/22 10:18:58 click 1483 158
+2022/09/22 10:18:58 click 1674 363
+2022/09/22 10:18:59 right click 1767 648
+2022/09/22 10:18:59 right click 1588 752
+2022/09/22 10:18:59 right click 1002 679
+2022/09/22 10:18:59 right click 544 529
+2022/09/22 10:18:59 right click 412 520
+2022/09/22 10:18:59 right click 348 715
+2022/09/22 10:19:00 right click 394 814
+2022/09/22 10:19:00 exit
+2022/09/22 10:26:29 Successfully Opened  template.json
+2022/09/22 10:26:44 Successfully Opened  template.json
+2022/09/22 10:27:00 Successfully Opened  template.json
+2022/09/22 10:27:14 Successfully Opened  template.json
+2022/09/22 10:34:54 Successfully Opened  template.json
+2022/09/22 10:36:25 Successfully Opened  template.json
+2022/09/22 10:37:18 Start Hook
+2022/09/22 10:37:18 Listening
+2022/09/22 10:37:20 click 1222 468
+2022/09/22 10:37:20 click 1536 299
+2022/09/22 10:37:21 exit
+2022/09/22 10:39:46 Successfully Opened  template.json
+2022/09/22 10:43:00 Successfully Opened  template.json
+2022/09/22 10:43:17 Successfully Opened  template.json
+2022/09/22 10:47:09 Start Hook
+2022/09/22 10:47:09 Listening
+2022/09/22 10:47:09 click 1137 454
+2022/09/22 10:47:09 click 1102 322
+2022/09/22 10:47:10 click 982 312
+2022/09/22 10:47:10 exit
+2022/09/22 10:47:44 Successfully Opened  template.json
+2022/09/22 10:48:02 Successfully Opened  template.json
+2022/09/22 10:48:11 Start Hook
+2022/09/22 10:48:11 Listening
+2022/09/22 10:48:12 click 1294 415
+2022/09/22 10:48:13 click 809 212
+2022/09/22 10:48:13 exit
+2022/09/22 10:48:42 Successfully Opened  template.json
+2022/09/22 10:49:00 Successfully Opened  template.json
+2022/09/22 10:49:25 Successfully Opened  template.json
+2022/09/22 10:49:44 Start Hook
+2022/09/22 10:49:44 Listening
+2022/09/22 10:49:44 click 1383 490
+2022/09/22 10:49:45 click 1092 116
+2022/09/22 10:49:45 click 731 89
+2022/09/22 10:49:45 click 593 244
+2022/09/22 10:49:45 click 595 477
+2022/09/22 10:49:46 exit
+2022/09/22 10:51:10 Successfully Opened  template.json
+2022/09/22 10:51:30 Successfully Opened  template.json
+2022/09/22 10:51:53 Start Hook
+2022/09/22 10:51:53 Listening
+2022/09/22 10:51:54 click 1135 466
+2022/09/22 10:51:54 click 1071 349
+2022/09/22 10:51:54 click 940 228
+2022/09/22 10:51:54 click 657 170
+2022/09/22 10:51:54 click 569 207
+2022/09/22 10:51:55 click 458 427
+2022/09/22 10:51:55 click 467 622
+2022/09/22 10:51:55 click 582 768
+2022/09/22 10:51:55 click 819 842
+2022/09/22 10:51:56 click 1185 873
+2022/09/22 10:51:56 click 1315 873
+2022/09/22 10:51:56 click 1475 768
+2022/09/22 10:51:56 click 1479 538
+2022/09/22 10:51:56 click 1239 426
+2022/09/22 10:51:56 click 1112 492
+2022/09/22 10:51:57 click 1090 694
+2022/09/22 10:51:57 exit
+2022/09/22 10:53:04 Successfully Opened  template.json
+2022/09/22 10:56:15 Successfully Opened  template.json
+2022/09/22 10:56:50 Successfully Opened  template.json
+2022/09/22 10:57:09 Start Hook
+2022/09/22 10:57:09 Listening
+2022/09/22 10:57:09 click 1136 464
+2022/09/22 10:57:10 click 679 382
+2022/09/22 10:57:10 click 596 479
+2022/09/22 10:57:10 click 794 709
+2022/09/22 10:57:10 click 892 737
+2022/09/22 10:57:10 exit
+2022/09/22 10:58:24 Successfully Opened  template.json
+2022/09/22 10:58:37 Start Hook
+2022/09/22 10:58:37 Listening
+2022/09/22 10:58:37 click 1125 451
+2022/09/22 10:58:37 click 1379 425
+2022/09/22 10:58:38 click 1557 322
+2022/09/22 10:58:38 click 1517 137
+2022/09/22 10:58:38 click 1236 29
+2022/09/22 10:58:38 click 930 52
+2022/09/22 10:58:39 click 626 145
+2022/09/22 10:58:39 click 507 310
+2022/09/22 10:58:39 click 471 559
+2022/09/22 10:58:39 click 606 745
+2022/09/22 10:58:40 click 1029 826
+2022/09/22 10:58:40 click 1058 826
+2022/09/22 10:58:40 exit
+2022/09/22 11:25:32 Successfully Opened  template.json
+2022/09/22 11:25:43 Start Hook
+2022/09/22 11:25:43 Listening
+2022/09/22 11:25:44 click 1260 506
+2022/09/22 11:25:44 click 1454 369
+2022/09/22 11:25:45 click 1492 287
+2022/09/22 11:25:45 click 1296 83
+2022/09/22 11:25:45 click 934 70
+2022/09/22 11:25:46 click 768 93
+2022/09/22 11:25:46 click 640 142
+2022/09/22 11:25:46 click 531 257
+2022/09/22 11:25:46 click 490 391
+2022/09/22 11:25:47 exit
+2022/09/22 11:26:33 Successfully Opened  template.json
+2022/09/22 11:26:40 Start Hook
+2022/09/22 11:26:40 Listening
+2022/09/22 11:26:41 click 1147 459
+2022/09/22 11:26:41 click 1306 425
+2022/09/22 11:26:42 click 1425 356
+2022/09/22 11:26:42 click 1216 184
+2022/09/22 11:26:42 click 941 157
+2022/09/22 11:26:42 click 676 188
+2022/09/22 11:26:43 click 560 297
+2022/09/22 11:26:43 click 520 467
+2022/09/22 11:26:43 click 534 559
+2022/09/22 11:26:43 exit
+2022/09/22 11:31:44 Successfully Opened  template.json
+2022/09/22 11:31:51 Start Hook
+2022/09/22 11:31:51 Listening
+2022/09/22 11:31:52 click 1296 418
+2022/09/22 11:31:52 click 1270 281
+2022/09/22 11:31:53 click 1093 210
+2022/09/22 11:31:53 click 984 285
+2022/09/22 11:31:53 exit
+2022/09/22 11:32:16 Successfully Opened  template.json
+2022/09/22 11:32:23 Start Hook
+2022/09/22 11:32:23 Listening
+2022/09/22 11:32:23 click 1124 446
+2022/09/22 11:32:23 click 1268 454
+2022/09/22 11:32:24 exit
+2022/09/22 11:33:07 Successfully Opened  template.json
+2022/09/22 11:33:13 Start Hook
+2022/09/22 11:33:13 Listening
+2022/09/22 11:33:14 click 1143 530
+2022/09/22 11:33:14 exit
+2022/09/22 11:38:05 Successfully Opened  template.json
+2022/09/22 11:38:11 Start Hook
+2022/09/22 11:38:11 Listening
+2022/09/22 11:38:11 click 1138 447
+2022/09/22 11:38:12 click 1138 447
+2022/09/22 11:38:12 click 1138 447
+2022/09/22 11:38:12 exit
+2022/09/22 12:13:46 Successfully Opened  template.json
+2022/09/22 13:30:17 Successfully Opened  template.json
+2022/09/22 13:33:08 Successfully Opened  template.json
+2022/09/22 13:33:15 Start Hook
+2022/09/22 13:33:15 Listening
+2022/09/22 13:33:18 click 1878 376
+2022/09/22 13:33:20 exit
+2022/09/22 13:33:23 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/09/22 13:33:23   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/09/22 13:33:23 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/09/22 13:33:23   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/09/22 13:33:29 Fyne error:  Getting favorite locations
+2022/09/22 13:33:29   Cause: uri is not listable
+2022/09/22 13:33:29   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/22 14:01:28 Successfully Opened  template.json
+2022/09/22 14:01:37 Start Hook
+2022/09/22 14:01:37 Listening
+2022/09/22 14:01:39 right click 1883 585
+2022/09/22 14:01:40 exit
+2022/09/22 14:02:07 Fyne error:  Getting favorite locations
+2022/09/22 14:02:07   Cause: uri is not listable
+2022/09/22 14:02:07   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/22 14:02:32 open key: The system cannot find the file specified.
+2022/09/22 14:03:44 open key: The system cannot find the file specified.
+2022/09/22 14:04:53 Successfully Opened  template.json
+2022/09/22 14:04:55 Fyne error:  Getting favorite locations
+2022/09/22 14:04:55   Cause: uri is not listable
+2022/09/22 14:04:55   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/22 14:05:12 open key: The system cannot find the file specified.
+2022/09/22 14:19:32 Successfully Opened  template.json
+2022/09/22 14:19:52 Start Hook
+2022/09/22 14:19:52 Listening
+2022/09/22 14:19:53 click 1252 437
+2022/09/22 14:19:53 click 1267 426
+2022/09/22 14:19:53 exit
+2022/09/22 14:24:20 Successfully Opened  template.json
+2022/09/22 14:25:00 Successfully Opened  template.json
+2022/09/22 14:25:03 Start Hook
+2022/09/22 14:25:03 Listening
+2022/09/22 14:25:04 click 1140 460
+2022/09/22 14:25:04 click 1206 473
+2022/09/22 14:25:04 click 1228 486
+2022/09/22 14:25:05 exit
+2022/09/22 14:25:12 Start Hook
+2022/09/22 14:25:12 Listening
+2022/09/22 14:25:13 click 1416 386
+2022/09/22 14:25:13 click 1332 237
+2022/09/22 14:25:14 click 1239 110
+2022/09/22 14:25:16 exit
+2022/09/22 17:26:31 Successfully Opened  template.json
+2022/09/22 17:30:55 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/09/22 17:30:55   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/09/22 17:30:55 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/09/22 17:30:55   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/09/22 17:31:04 Fyne error:  Getting favorite locations
+2022/09/22 17:31:04   Cause: uri is not listable
+2022/09/22 17:31:04   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/22 17:31:20 Command stdout:  [97 117 116 111 109 97 116 101 101 118 101 114 121 116 104 105 110 103 46 99 111 109 46 101 120 101 10 99 111 114 101 46 108 111 103 10 99 117 115 116 111 109 10 71 69 65 82 83 45 65 103 101 110 116 46 108 111 103 10 103 111 46 109 111 100 10 103 111 46 115 117 109 10 105 99 111 110 46 112 110 103 10 108 111 103 115 46 116 120 116 10 109 97 105 110 46 103 111 10 82 69 65 68 77 69 10 114 101 112 111 114 116 46 106 115 111 110 10 116 101 109 112 108 97 116 101 10 116 101 109 112 108 97 116 101 46 106 115 111 110 10 116 101 115 116 46 106 115 111 110 10 116 101 115 116 95 115 99 97 110 95 115 99 114 101 101 110 46 112 110 103 10 117 116 105 108 115 10]
+2022/09/22 17:52:52 Successfully Opened  template.json
+2022/09/22 17:52:54 Fyne error:  Getting favorite locations
+2022/09/22 17:52:54   Cause: uri is not listable
+2022/09/22 17:52:54   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
+2022/09/22 17:53:07 Command stdout:  automateeverything.com.exe
+core.log
+custom
+GEARS-Agent.log
+go.mod
+go.sum
+icon.png
+logs.txt
+main.go
+README
+report.json
+template
+template.json
+test.json
+test_scan_screen.png
+utils
+
+2022/10/03 14:19:36 Successfully Opened  template.json
+2022/10/03 14:20:08 Start Hook
+2022/10/03 14:20:08 Listening
+2022/10/03 14:20:11 click 1615 60
+2022/10/03 14:20:12 click 276 215
+2022/10/03 14:20:14 exit
+2022/10/03 14:20:18 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:18   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:18 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:18   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:20 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:20   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:20 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:20   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:20 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:20   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:20 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:20   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:20 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:20   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:20:20 Fyne error:  GLFW poll event error: InvalidValue: Invalid scancode 0
+2022/10/03 14:20:20   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/internal/driver/glfw/loop_desktop.go:35
+2022/10/03 14:21:13 Fyne error:  Getting favorite locations
+2022/10/03 14:21:13   Cause: uri is not listable
+2022/10/03 14:21:13   At: C:/Users/hau.bui/go/pkg/mod/fyne.io/fyne/v2@v2.2.3/dialog/file.go:277
