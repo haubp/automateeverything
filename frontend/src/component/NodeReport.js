@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
+import { ArrowClockwise } from "react-bootstrap-icons";
 import "./NodeReport.css";
 
 export default function () {
+  let [isRunning, setRunning] = useState(true);
+  let [passed, setPassed] = useState(0);
+  let [failed, setFailed] = useState(0);
   const baseUrl = "http://10.40.50.34:6868";
   const downloadHandler = (e) => {
     axios({
@@ -29,6 +34,35 @@ export default function () {
       URL.revokeObjectURL(href);
     });
   };
+
+  const reloadHandler = async () => {
+    axios({
+      url:
+        baseUrl +
+        "/public/user_d82494f05d6917ba02f7aaa29689ccb444bb73f20380876cb05d1f37537b7892/test_result.json", //your url
+      method: "GET",
+    }).then(res => res.data).then((data) => {
+      setRunning(false);
+      console.log(data);
+      let pass = 0;
+      let fail = 0;
+      for (let groupIndex in data.test_category_groups) {
+        let group = data.test_category_groups[groupIndex];
+        for (let testCaseIndex in group.test_group_tests) {
+          let testCase = group.test_group_tests[testCaseIndex]
+          if (testCase.result == "Success") {
+            pass += 1;
+          } else {
+            fail += 1;
+          }
+        }
+      }
+
+      setPassed(pass);
+      setFailed(failed);
+    });
+  }
+
   return (
     <div className="nodeBoard">
       <Card style={{ width: "18rem" }}>
@@ -41,6 +75,7 @@ export default function () {
               }}
             >
               <span>a0f90acdd7</span>
+              <ArrowClockwise onClick={reloadHandler}/>
             </div>
           </Card.Title>
           <div
@@ -53,7 +88,7 @@ export default function () {
                 className="badge badge-primary text-warap"
                 style={{ width: "3rem", color: "black" }}
               >
-                1
+                { passed }
               </span>
             </label>
           </div>
@@ -67,14 +102,20 @@ export default function () {
                 className="badge badge-primary text-warap"
                 style={{ width: "3rem", color: "black" }}
               >
-                0
+                { failed }
               </span>
             </label>
           </div>
           <div className="report-download">
-            <Button className="result-btn" variant="outline-warning">
-              Download
-            </Button>
+            {isRunning ? (
+              <Spinner animation="border" role="status" size="sm">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ) : (
+              <Button className="result-btn" variant="outline-warning" onClick={downloadHandler}>
+                Download
+              </Button>
+            )}
           </div>
         </Card.Body>
       </Card>
