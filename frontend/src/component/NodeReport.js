@@ -59,7 +59,7 @@ export default function () {
       }
 
       setPassed(pass);
-      setFailed(failed);
+      setFailed(fail);
     });
   }
 
@@ -112,7 +112,7 @@ export default function () {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             ) : (
-              <Button className="result-btn" variant="outline-warning" onClick={downloadHandler}>
+              <Button className="result-btn" variant={failed != 0 ? "outline-warning" : "outline-success"} onClick={downloadHandler}>
                 Download
               </Button>
             )}
