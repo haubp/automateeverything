@@ -1,0 +1,5 @@
+{
+    "engines":["AVG","VirIT","AegisLab","VirusBlokAda","Agnitum","ESET","McAfee-Gateway","Symantec","Avira","F-prot","BitDefender","K7","Norman"],
+    "enable":1,
+    "upload":1
+}

@@ -1,0 +1,10 @@
+{   
+    "serial_number":0,
+    "device_serial_number":0,
+     "local_ip" : 0,
+     "hostname" : 0,
+     "public_ip" : 0,
+     "mac_addr" : 0,
+     "username" : 0,
+     "application": 0
+}

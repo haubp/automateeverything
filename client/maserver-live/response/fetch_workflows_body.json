@@ -1,0 +1,95 @@
+{
+    "workflows": [
+      {
+        "id": "6290471645160000fa00547a",
+        "hash": "43524525fdgg",
+        "root": "hash_files_6_0n85olddyswinp1on466y0x_1653016613324",
+        "spec": {
+          "nodes": [
+            {
+              "metadata": {
+                "description": "Get registry key abc",
+                "name": "Get registry key"
+              },
+              "spec": {
+                "inputs": {
+                  "path": "path registry /HKEY_LOCAL.."
+                },
+                "key": "hash_files_6_0n85olddyswinp1on466y0x_1653016613324",
+                "kind": "task",
+                "precede": [
+                  "conditional_2jas0_mrmnnlsbgbbc0j4ba3y_1653016558941"
+                ],
+                "task": "file_system.exists"
+              }
+            },
+            {
+              "metadata": {
+                "description": "Add a new conditional node to create decisions in the playbook flow.",
+                "name": "Check registry key"
+              },
+              "spec": {
+                "cases": [
+                  {
+                    "conditions": [
+                      {
+                        "kind": "two_op",
+                        "left": "${id_task.outputs.value",
+                        "negate": false,
+                        "operator": "contains",
+                        "right": 1
+                      },
+                      {
+                        "kind": "two_op",
+                        "left": "${id_task.outputs.value",
+                        "negate": false,
+                        "operator": "contains",
+                        "right": true
+                      },
+                      {
+                        "kind": "two_op",
+                        "left": "${id_task.outputs.value",
+                        "negate": false,
+                        "operator": "contains",
+                        "right": "abcxyz"
+                      }
+                    ],
+                    "label": "Value contain abc"
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "kind": "two_op",
+                        "left": "id_task.outputs.value",
+                        "negate": false,
+                        "operator": "contains",
+                        "right": "def"
+                      }
+                    ],
+                    "label": "Contain def"
+                  }
+                ],
+                "key": "conditional_2jas0_mrmnnlsbgbbc0j4ba3y_1653016558941",
+                "kind": "conditional",
+                "precede": [
+                  {
+                    "cases": [
+                      0,
+                      1
+                    ],
+                    "key": "mdcloud_sandbox_3qj0zp5wcm1v9w5zb1qi07d2__1653016891764"
+                  },
+                  {
+                    "cases": [
+                      -1
+                    ],
+                    "key": "mdcloud_sandbox_4mc0pkwyl585qddwxlz8kldqa_1653017005453"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+}

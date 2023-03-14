@@ -1,0 +1,20 @@
+{
+    "last_report": "2015-12-08T10:38:35Z",
+    "total_threats": 2,
+    "threats": [{
+        "type": 1,
+        "threat_name": "Adware.MultiPlug.AG.dewp.mg",
+        "file": "C:\\Program Files (x86)\\Dropbox\\Client\\breakpad.client.windows.handler.pyd",
+        "engines_detected": 1,
+        "hash": "5245F65FE4BD80E5A803729094A8B7232B5FDC7564DBC651559FB624B26877D5"
+    },
+    {
+        "type": 1,
+        "threat_name": "Adware.Linkun.Win32.3036",
+        "file": "C:\\Program Files (x86)\\Dropbox\\Client\\Dropbox.exe",
+        "engines_detected": 1,
+        "hash": "C5E4E95A5ED1CE4548F85CE30409A64608A1CA9C76F5685D3E5841C8DEC2FD5F"
+    }],
+    "last_scan_time": "2016-01-05T07:30:17Z",
+    "total_engines": 43
+}

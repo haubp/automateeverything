@@ -1,0 +1,65 @@
+{
+ "test_category_name": "init",
+ "test_category_groups": [
+  {
+   "test_group_name": "UpgradeAgentwithURLFetched",
+   "test_group_tests": [
+    {
+     "name": "DisableAutoUpgrage",
+     "test_steps": [
+      {
+       "step_name": "Check Client Request To MA",
+       "step_action": "CheckClientRequestToMA",
+       "step_params": [
+        "report_soh",
+        "agent_version",
+        "7.6.2211.121"
+       ],
+       "step_pre_sleep": 100000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Run Command",
+       "step_action": "RunCommand",
+       "step_params": [
+        "reg delete \"HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\OPSWAT\\Gears Client\\Status\" /v LastUpdateTime /f",
+        "The operation completed successfully."
+       ],
+       "step_pre_sleep": 300000,
+       "step_post_sleep": 100
+      },
+      {
+       "step_name": "Run Command",
+       "step_action": "RunCommand",
+       "step_params": [
+        "Taskkill /IM \"GearsHelper.exe\" /F",
+        "SUCCESS"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 100
+      },
+      {
+       "step_name": "Run Command",
+       "step_action": "RunCommand",
+       "step_params": [
+        "Reg Query \"HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\OPSWAT\\Gears Client\\Config\" /v MSIPackageVersion",
+        "7.6.2211.121"
+       ],
+       "step_pre_sleep": 10000,
+       "step_post_sleep": 100
+      }
+     ],
+     "result": "Not Run",
+     "id": 0,
+     "ma_response": [
+      {
+       "request_path": "fetch_config",
+       "response_header": "{\"content-type\":\"application/json\"}",
+       "response_body": "{\"config\":{\"scanning_servers\":{\"suspicious_ip\":\"https://api.metadefender.com:443/v4\",\"running_process\":\"https://api.metadefender.com:443/v4\"},\"account_type\":1,\"fetch_report_rule\":1,\"group_info\":{\"group_id\":\"1587002206509\",\"priority\":3,\"retain_group\":1},\"pin_required\":0,\"akl\":{\"enable\":0,\"run_while\":{\"running_process\":[],\"running_process_desc\":[]}},\"client_cert\":0,\"policy_setting\":{\"Antivirus\":{\"num_days_def\":4},\"Patch_Management\":{\"num_days_patch\":30}},\"show\":1,\"collect_network\":0,\"privacy\":{\"local_ip\":0,\"hostname\":0,\"public_ip\":0,\"mac_addr\":0,\"username\":0,\"serial_number\":0,\"application\":0,\"device_serial_number\":1},\"imhere\":{\"interval\":1},\"soh\":{\"enabled_categories\":{\"User_Authentication\":1,\"Cleaner_Optimizer\":1,\"App_BackupClient\":1,\"Media_Player\":1,\"Developer_Tool\":1,\"CustomCheck\":1,\"Instant_Messegener\":1,\"Uninstaller\":1,\"Hard_Disk_Encryption\":0,\"Cloud_Storage\":1,\"BackupClient\":1,\"App_Antivirus\":1,\"Others\":0,\"App_Firewall\":1,\"Unclassified_PUA\":1,\"VPN_Client\":1,\"Antiphishing\":1,\"App_Hard_Disk_Encryption\":1,\"Workflow\":0,\"Antivirus\":1,\"Remote_Control\":1,\"App_Patch_Management\":1,\"Data_Loss_Prevention\":1,\"Hard_Drive\":1,\"Anti_Copy_Paste\":0,\"Firewall\":1,\"Operating_System\":1,\"PublicFileSharing\":1,\"Toolbars\":1,\"App_Antiphishing\":1,\"Recording_Web_Meeting\":1,\"Browser\":1},\"realtime_monitoring\":0,\"waiting_time\":{\"interval\":1,\"tsr\":0,\"realtime\":5}},\"autoupdate\":0,\"acp\":{\"enable\":0,\"run_while\":{\"running_process\":[],\"running_process_desc\":[]}},\"notification\":0,\"CustomCheck\":{\"path\":\"https://gears-beta.opswat.com/gears/api/5/agent/download_custom_script/76507c4114e9c89388254eb5da4c84cd.zip\",\"enable\":1,\"last_update\":1663839277550,\"run_as\":0,\"interval\":60,\"hash\":\"76507c4114e9c89388254eb5da4c84cd\",\"timeout\":60},\"agent_url\":\"https://agent-update-beta.opswat.com/windows_installer\",\"app_ui\":1,\"user_identity\":{\"msg\":\"\",\"regex\":\"\",\"enable\":0},\"sot\":{\"enable\":1,\"waiting_time\":{\"interval\":1,\"tsr\":0}},\"sov\":{\"waiting_time\":{\"interval\":1,\"tsr\":0}},\"delay_start\":1,\"s3\":{\"ac_key\":\"eJCkOEEZk21gmFQRLm0jZRGO6/I=\",\"sc_key\":\"D7m8DjsKrHwS5UEOcFsOfN3o2KxlgNvyskcreqZXCp3ZSemCERHN+Q==\"},\"expired_cmd\":604800,\"nac_domains\":[],\"media_security\":{\"manifest\":{\"enabled\":0,\"block_not_on_manifest\":0,\"trusted_d\":7,\"cert_hash\":\"\",\"cert_url\":\"https://gears-beta.opswat.com/gears/api/3/agent/get_cert_manifest/1587002755735\"},\"scan_rule\":{\"disable_hash_check\":0,\"engine_threshold\":2,\"include_engines\":[\"ClamAV\",\"Comodo\",\"CrowdStrike Falcon ML\",\"Cyren\",\"Emsisoft\",\"K7\",\"Kaspersky\",\"McAfee\",\"RocketCyber\",\"TACHYON\",\"Vir.IT ML\",\"Vir.IT eXplorer\",\"Quick Heal\",\"AhnLab\",\"IKARUS\",\"Zillya!\",\"NANOAV\"]},\"scan_options\":{\"path\":\"\",\"full_scan\":0,\"type\":[0]},\"scheduler\":\"24\",\"scan_server\":{\"type\":0,\"api_key\":\"48f4ef8b44a0d902c244f2a3efafa2f5\",\"url\":\"https://api.metadefender.com:443/v4\"},\"enabled\":0,\"exclude_phone\":1,\"exclude_cd_dvd\":0,\"copy_from_drive_to\":\"\",\"unblock_on_error\":0,\"copy_on_error\":0,\"sanitized\":{\"enabled\":0,\"use_sanitized_files\":0},\"blocked\":1,\"copy_to_drive\":{\"bucket\":\"opswat-gears-fetch-log-beta\",\"region\":\"us-east-1\",\"enabled_scanning\":0,\"report_copy_result\":0},\"actions\":{\"unblock\":0,\"copy_to_drive\":0,\"copy_from_drive\":0},\"enabled_sot\":1,\"vault\":{\"enabled\":0,\"action\":2,\"allowed_url\":\"\",\"allowed_token\":\"\",\"allowed_guest\":0,\"blocked_url\":\"\",\"blocked_token\":\"\",\"blocked_guest\":0}},\"Workflow\":{\"interval\":60,\"timeout\":60,\"enable\":0},\"oesis_url\":\"https://agent-update-beta.opswat.com/oesis\",\"delay_start_at\":0,\"mdc_submit\":1,\"Antivirus\":[{\"DefinitionTime\":1,\"Enabled\":1,\"SignatureIds\":[477],\"DefinitionDay\":4}],\"os_patches\":{\"enable\":1,\"interval\":1740,\"enable_missing_patches\":1},\"Firewall\":[{\"Enabled\":1}],\"bypass\":{\"notification\":1,\"type\":\"all\",\"remained_time\":[30,60,120]},\"asc\":{\"enable\":0,\"run_while\":{\"running_process\":[],\"running_process_desc\":[]}},\"auto_update_sdk\":1,\"use_serial_id\":1,\"local_server\":{\"port\":11369,\"enable\":1,\"cors_domains\":[],\"cert\":{\"hash\":\"849BF261D22757365392C7BDE84D1A996E6D3CC1DBB5096E9F1F921E529B3CEE\",\"url\":\"https://opswat-gears-cloud-clients-beta.s3.us-west-2.amazonaws.com/client-certs/jsonp_server.crt\"}},\"rp_time\":1,\"encrypt_pin\":0,\"sdp\":{\"enable\":2,\"url\":\"https://api-beta.sdp.opswat.com\",\"reg_code\":\"4X7GZ7SN\",\"sso_url\":\"https://gears-beta.opswat.com/sdp/sso/1fe5287dfe1ca8204f330325d1b20bbe/login\",\"in_app_sso\":0},\"register\":{\"waiting_time\":{\"interval\":0,\"tsr\":0}}}}"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

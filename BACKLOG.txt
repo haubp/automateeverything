@@ -1,0 +1,48 @@
+Upgrade agent with the URL fetched from the cloud
+Upgrade OESIS
+Verify agent able to report to the cloud
+Enable client certificate
+Enable cookie injection
+Cross-domain settings
+	+ Check with default port
+	+ Check with another port
+	+ Check with disable
+Verify the download page for the old version
+Verify CPU and memory with/without a network connection
+Verify no crash dump is generated
+Verify that an agent works properly with UI settings on the cloud
+	+ Manage Client (Trial + Manage Cloud)
+	+ Free Client 
+Verify the support chart version
+Verify approved product of paid customers
+Verify agent can execute commands from the cloud and send back response properly
+Access Control feature
+Run a custom script
+USB security
+Verify package size
+	+ Verify the size of the agent
+	+ Verify size of OESIS
+Verify the agent doesn't report privacy data if it's enabled on the cloud
+Check duplicate device with its account on beta and at least LFG account on production
+Check SSL cert for eapi.opswat.com
+OPSWAT SDP
+NAC Discovery Service
+AKL/ASC
+Integration test with Horizon client
+Check sign product
+Create a portable program to scan files with meta-defender servers from the command line
+Verify functions on UI work well with:
+	+ Manage Client (Paid Account MA and Trial Account MA)
+	+ Free Client (Marketing Account https://www.opswat.com/free-tools)
+Playbooks
+Security Score
+Software Updates
+Vulnerable Apps 
+VUL database
+
+============================
+=========== DONE =========== 
+============================
+
+Install
+Uninstall

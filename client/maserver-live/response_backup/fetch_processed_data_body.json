@@ -1,0 +1,44 @@
+{
+	"processed_data": {
+		"antivirus": {
+			"hash": "gfhgfgdfgfgfdfgd",
+			"data": {
+				"wsc": 0,
+				"issue": 1,
+				"rtp": 1,
+				"full_scan": 2,
+				"signature_definition": 0,
+				"threat": 1
+			}
+		},
+		"hard_disk_encryption": {
+			"hash": "g66dfgfgf342fdfgd",
+			"data": {
+				"issue": 0,
+				"system_volume": 1,
+				"local_volume": 0,
+				"removable_volume": 0
+			}
+		},
+		"patch_management": {
+			"hash": "25234255235",
+			"data": {
+				"issue": 0,
+				"disabled": 1,
+				"reported": 1
+			}
+		},
+		"threat_processes": {
+			"hash": "25234255235",
+			"data": {
+				"issue": 1
+			}
+		},
+		"threat_repeated": {
+			"hash": "25234255235",
+			"data": {
+				"issue": 0
+			}
+		}
+	}
+}

@@ -160,7 +160,7 @@ Flow
         3.1 Receive Test Template and User_Id, save it into /data/<User_Id>/test_template/<User_Id>.json
     4. Trigger Test Template to all Node and get report output:
         4.1 Add Node status START to Node_Command table
-        4.2 Each Node query Node_Command table to check, and if it command is TRIGGER_TEST 
+        4.2 Each Node query Node_Command table to check, and if it command is TRIGGER_TEST FROM 1 TO 3
             -> Download template from /data/<User_Id>/test_template
         4.3 Update Node_Command table: START -> RUNNING
         4.4 Run Test Template and generate output Report

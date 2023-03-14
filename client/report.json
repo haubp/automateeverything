@@ -1,0 +1,40 @@
+{
+ "test_category_name": "init",
+ "test_category_groups": [
+  {
+   "test_group_name": "t",
+   "test_group_tests": [
+    {
+     "name": "t",
+     "test_steps": [
+      {
+       "step_name": "Check Client Request To MA",
+       "step_action": "CheckClientRequestToMA",
+       "step_params": [
+        "register",
+        "device_id.device_type",
+        "superrr"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Failed at step Check Client Request To MA",
+     "id": 0,
+     "ma_response": [
+      {
+       "request_path": "register",
+       "response_header": "{\"content-typeeee\":\"application/json\"}",
+       "response_body": "{\"device_iddddd\":\"ID\"}"
+      },
+      {
+       "request_path": "fetch_config",
+       "response_header": "{\"content-typeeeeeeeeeeeeeeeee\":\"application/json\"}",
+       "response_body": "{\"tokennnnnn\":\"TK\"}"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

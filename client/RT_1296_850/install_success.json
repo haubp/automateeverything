@@ -1,0 +1,150 @@
+{
+ "test_category_name": "install",
+ "test_category_groups": [
+	{
+		"test_group_name": "install",
+		"test_group_tests": [
+			{
+     "name": "install",
+     "test_steps": [
+      {
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
+       "step_params": [
+        55,
+        328
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Double Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        true
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
+       "step_params": [
+        581,
+        520
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
+       "step_params": [
+        735,
+        571
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 120000
+      },
+      {
+       "step_name": "Move Mouse",
+       "step_action": "MoveMouse",
+       "step_params": [
+        757,
+        571
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Left Click",
+       "step_action": "LeftClick",
+       "step_params": [
+        false
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Not Run",
+     "id": 0,
+     "ma_response": null
+    },
+    {
+     "name": "register_success",
+     "test_steps": [
+      {
+       "step_name": "Check Client Request To MA",
+       "step_action": "CheckClientRequestToMA",
+       "step_params": [
+        "register",
+        "agent_type",
+        "0"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Not Run",
+     "id": 1,
+     "ma_response": null
+    },
+    {
+     "name": "check_folder_install",
+     "test_steps": [
+      {
+       "step_name": "Run Command",
+       "step_action": "RunCommand",
+       "step_params": [
+        "IF EXIST \"C:\\Program Files (x86)\\OPSWAT\\GEARS Client\" ECHO exists",
+        "exists"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 100
+      }
+     ],
+     "result": "Not Run",
+     "id": 2,
+     "ma_response": null
+    },
+    {
+     "name": "check_group_id",
+     "test_steps": [
+      {
+       "step_name": "Check Client Request To MA",
+       "step_action": "CheckClientRequestToMA",
+       "step_params": [
+        "register",
+        "group_id",
+        "1587002206509"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Not Run",
+     "id": 3,
+     "ma_response": null
+    }
+		] 
+	}
+   ]
+  }

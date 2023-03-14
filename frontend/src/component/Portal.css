@@ -4,51 +4,5 @@
 }
 
 .left-pannel-controller {
-  border: 2px solid #DFF6FF;
-  height: 95vh;
-  padding: 25px;
-  background-color: #F5EFE6;
-}
-
-.banner {
-  background-color: #256D85;
-  padding: 0.5em 2em;
-  border-radius: 0px 0px 25px 25px;
-  color: #DFF6FF;
-  display: flex;
-  justify-content: end;
-}
-
-.user-setting {
-  color: #DFF6FF;
-  margin-left: 1em;
-}
-
-.controller {
-  color: #06283D;
-}
-
-.reporter-control {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.node-config-control {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.cancel-button {
-  margin-top: 1em;
-}
-
-.upload-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.upload-btn {
-  margin-top: 1em;
+  margin-top: 50px;
 }

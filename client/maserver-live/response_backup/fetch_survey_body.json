@@ -1,0 +1,8 @@
+{
+    "enable": 1,
+    "show_opt": {
+    "in_app": 1,
+    "show": 1
+    },
+    "url": "http://monkeysurvey.com"
+}

@@ -1,0 +1,86 @@
+{
+ "test_category_name": "report",
+ "test_category_groups": [
+  {
+   "test_group_name": "test_report",
+   "test_group_tests": [
+    {
+     "name": "imhere_check",
+     "test_steps": [
+      {
+       "step_name": "Check Log",
+       "step_action": "CheckLog",
+       "step_params": [
+        "C:\\ProgramData\\OPSWAT\\Gears\\logs\\GEARS-Agent.log",
+        "KeepAlive's header"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Check Client Request To MA",
+       "step_action": "CheckClientRequestToMA",
+       "step_params": [
+        "imhere",
+        "agent_token",
+        "83DBD29712602CD55DEC4544A6AD39F978F516B8"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Not Run",
+     "id": 0,
+     "ma_response": null
+    },
+    {
+     "name": "config_check",
+     "test_steps": [
+      {
+       "step_name": "Check Log",
+       "step_action": "CheckLog",
+       "step_params": [
+        "C:\\ProgramData\\OPSWAT\\Gears\\logs\\GEARS-Agent.log",
+        "sending config request"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      },
+      {
+       "step_name": "Check Client Request To MA",
+       "step_action": "CheckClientRequestToMA",
+       "step_params": [
+        "fetch_config",
+        "agent_token",
+        "83DBD29712602CD55DEC4544A6AD39F978F516B8"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Not Run",
+     "id": 1,
+     "ma_response": null
+    },
+    {
+     "name": "config_response",
+     "test_steps": [
+      {
+       "step_name": "Check Log",
+       "step_action": "CheckLog",
+       "step_params": [
+        "C:\\ProgramData\\OPSWAT\\Gears\\logs\\GEARS-Agent.log",
+        "Server config"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 1000
+      }
+     ],
+     "result": "Not Run",
+     "id": 2,
+     "ma_response": null
+    }
+   ]
+  }
+ ]
+}

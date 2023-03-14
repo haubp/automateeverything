@@ -1,0 +1,16 @@
+{
+	"messages": [
+		{
+			"code": "FW_001",
+			"details": "<p>This issue could expose your device to attack and loss of data.</p>\n<p>Turn on the firewall for at least one product listed below:</p>\n<p class=\"product-details\"></p>\n<ul id=\"template1\">\n <li>Cyberoam</li>\n <li>Windows Firewall</li>\n</ul>\n<p></p>\n<p>Click <a href=\"https://onlinehelp.opswat.com/metaaccess/Firewall_Remediation_Instruction.html\" target=\"_blank\" class=\"gray-button\">INSTRUCTIONS</a> to learn how to enable your firewall.</p>",
+			"summary": "The firewall on your device is turned off.",
+			"action_type": "required"
+		},
+		{
+			"code": "IR_001",
+			"details": "<p>Your device has threat(s) found by your local anti-malware that cannot be automatically removed.</p>\n<div id=\"template1\">\n <ul>\n  <li><p>Threat Name: TrojanTool</p><p>Path: C:\\PROGRAM FILES (X86)\\NKT_BROWSERINC</p><p>Detected by: ESET Endpoint Antivirus</p><p>Number of times detected: 3</p><p>Last action taken: Threat was moved to quarantine zone.</p></li>\n </ul>\n</div>\n<p>Your organization's private data is at risk. Disconnect your device from the network immediately and contact your Administrator.</p>",
+			"summary": "Threat(s) have been found by your local anti-malware products.",
+			"action_type": "required"
+		}
+	]
+}

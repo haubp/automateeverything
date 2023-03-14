@@ -1,0 +1,41 @@
+{
+	"config_hash" : "string",				
+		"hash": "fsdf3424342334", 		
+		"keep_reporting": 1,		
+	"processed_hash": "sdfasfasddddd",	
+    "open_rem_page": true,				
+    "compliant": 0,
+    "issue":0,
+    "critical": 0,
+    "show_remediation_page" : 0,
+    "status": "non_compliant",
+    "required_issue": 0,
+
+    "command" :{
+		"method": 0,				
+		"params": 0 	
+	}, 
+    "cac": {
+        "browsers": ["firefox", "chrome", "opera", "safari", "ie", "edge"],	
+		"bypass_app": [
+        {
+            "id" : "app1",	
+            "name": "Salesforce",	
+            "time_left_m": -1,
+            "last_grant": "<unix-time>"	
+        },
+        {
+            "id" : "app2",
+            "name": "Dropbox",
+            "time_left_m": 0,
+            "last_grant": "<unix-time>"
+        },
+        {
+            "id" : "app3",
+            "name": "AWS",
+            "time_left_m": 10,
+            "last_grant": "<unix-time>"
+        }
+    	]
+    }
+ }

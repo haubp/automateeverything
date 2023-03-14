@@ -1,0 +1,28 @@
+{
+ "test_category_name": "cleanup",
+ "test_category_groups": [
+  {
+   "test_group_name": "cleanup",
+   "test_group_tests": [
+    {
+     "name": "run_clean_up_script",
+     "test_steps": [
+      {
+       "step_name": "Run Command",
+       "step_action": "RunCommand",
+       "step_params": [
+        "powershell.exe -File \"C:\\auto\\script\\cleanup.ps1\"",
+        "Finish"
+       ],
+       "step_pre_sleep": 1000,
+       "step_post_sleep": 100
+      }
+     ],
+     "result": "Not Run",
+     "id": 0,
+     "ma_response": null
+    }
+   ]
+  }
+ ]
+}
